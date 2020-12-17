@@ -1,0 +1,26 @@
+<!doctype  html>
+<html  lang="ru">
+<head>
+<link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
+<title>Django Authentication Example</title>
+</head>
+<body>
+  <div  class="container">
+    <div  class="row justify-content-center">
+      <div  class="col-4">
+      <h1  class="text-center">Пример аутентификации Django</h1>
+      {% block main %}
+      {% endblock %}
+        {% block content %}
+<h2>Sign Up</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Sign Up</button>
+</form>
+{% endblock %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
