@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    {% block metaname %}
+    <link rel="stylesheet" type="text/css" href="{% static '/dom/css/saxar.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock metaname %}
+    <title>{% block title %}Базовый{% endblock title %}</title>
+</head>
+<body>
+<h1>База</h1>
+
+ {% if user.is_authenticated %}
+        <p>Hi {{ user.username }}!</p>
+      {% else %}
+        <p>You are not logged in.</p>
+        <a href="{% url 'login' %}">Log In</a>
+      {% endif %}
+    {% block content %}
+    {% endblock content %}
+
+<div>
+
+
+    {% block content %}
+    <div class="w3-container w3-green">
+        Строка без отступов сверху и снизу.
+    </div>
+
+
+    <div >
+        <p id="id02">Делаем просто...</p>
+        <script>
+var element = document.getElementById("id02");
+element.innerHTML = "Меняем текст добавив к элементу id и вставляем скрипт под этот id";
+</script>
+
+    </div>
+
+    {% include "dom/includes/menu.html" %}
+    <div class="w3-panel w3-green">
+        <p>Панель с отступами </p>
+    </div>
+
+    <button class="w3-btn" onclick="document.getElementById('id01').style.display='block'">Показать панель</button>
+    <div id="id01" class="w3-panel w3-green w3-display-container" style="display:none">
+  <span onclick="this.parentElement.style.display='none'"
+        class="w3-button w3-display-topright">X</span>
+        <p>Нажмите на X, чтобы закрыть эту панель.</p>
+        <p>Нажмите на X, чтобы закрыть эту панель.</p>
+    </div>
+
+
+    <div class="w3-panel w3-pale-green">
+        <p>Заметки часто отображаются бледным цветом:.</p>
+    </div>
+
+    <div class="w3-panel w3-leftbar w3-sand w3-xxlarge w3-serif">
+        <p><i>"Сделайте это как можно проще, но не примитивно."</i></p>
+    </div>
+
+
+    <header class="w3-container w3-teal">
+        <h1 class="w3-white">Базовый шаблон</h1>
+    </header>
+    <p>Параграф</p>
+
+
+    <img src="{% static '/privoz/images/men.png' %}" alt="Автомобиль" style="width:100%">
+
+
+    <div class="w3-panel w3-display-container">
+  <span onclick="this.parentElement.style.display='none'"
+        class="w3-button w3-display-topright">X</span>
+        <p>Нажмите на X, чтобы закрыть эту панель.</p>
+    </div>
+
+    <p id="demo">JavaScript can change HTML content.</p>
+    <button type="button" onclick='document.getElementById("demo").innerHTML = "Привет, хороший день!"'>Нажать!</button>
+
+
+    <footer class="w3-container w3-teal">
+        <h5>Footer</h5>
+        <p>Информация нижнего колонтитула идет здесь</p>
+    </footer>
+
+    <p id="p2">Am super heerov</p>
+    <script>
+
+document.getElementById("p2").style.color = "blue";
+document.getElementById("p2").style.fontFamily = "Arial";
+document.getElementById("p2").style.fontSize = "larger";
+</script>
+
+    <button type="button" onclick="document.write('<h2>ПиЗДЕЦ, Кому написано? Все поломалось...</h2>')">Не нажимать.</button>
+
+    {% endblock %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+
+</body>
+</html>
