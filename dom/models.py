@@ -78,10 +78,24 @@ class Adres(models.Model):
     gorod = models.CharField('Нас. пункт', max_length=128)
     raion = models.CharField('Район', max_length=128)
     street = models.CharField('Улица', max_length=128)
+    n_doma = models.CharField('№ дома', max_length=128, blank=True, null=True)
+    n_kvartiri = models.CharField('№ квартиры', max_length=128, blank=True, null=True, default=0)
+    n_podezda = models.CharField('№ подъезда', max_length=128, blank=True, null=True, default=0)
+    slug = models.SlugField('Ссылка', max_length=160, unique=True, blank=True, null=True)
+    is_activ = models.BooleanField('На сайте', default=False, blank=True, null=True)
+    is_prodaju = models.BooleanField('Продается', default=False, blank=True, null=True)
+    is_prodano = models.BooleanField('Продано', default=False, blank=True, null=True)
+    is_arenda = models.BooleanField('В аренду', default=False, blank=True, null=True)
+    descreption = models.TextField('Объявление', max_length=5000, blank=True, null=True)
     arti_dokument = models.ForeignKey(Articul, verbose_name='artic', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
-        return '%s ' % self.name_krai
+        return '%s%s ' % (self.gorod,self.arti_dokument)
+
+    def save(self, *args, **kwargs):
+        self.slug = '%s_%s' % (self.gorod, self.arti_dokument)
+        self.slug = slugify(self.slug)
+        super(Adres, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name = 'Адрес'

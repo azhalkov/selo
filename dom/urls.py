@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from . import views
-from .views import CategoriView, DomDokumentView
+from .views import CategoriView, DomDokumentView, AdresView, ArtikulView
 
 urlpatterns = [
     # path('', views.index, name='index'),
@@ -14,8 +14,8 @@ urlpatterns = [
          name='new_categori'),
     path('add_document/', DomDokumentView.as_view(template_name='dom/forms/document_form.html'),
          name='new_document'),
-    # path('klient/', KlientView.as_view(template_name='dom/forms_html/klient_form.html'), name='klient'),
-    # path('dokument/', DomDokumentView.as_view(template_name='dom/forms_html/dokument_form.html'),
+    path('adres/', AdresView.as_view(template_name='dom/forms/adres_form.html'), name='adres'),
+    path('artikul/', ArtikulView.as_view(template_name='dom/forms/articul_form.html'), name='artikul'),
     #      name='dokument'),
     # path('nedvijimost/', views.nedvijimostlist, name='nedvijimost'),
     # path('nedvijimost/<int:pk>/', HouseLokationDetailView.as_view(), name='detail'),

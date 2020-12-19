@@ -1,22 +1,29 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-
-from .models import Categori, DomDokument, Articul
+from .models import Categori, DomDokument, Articul, Adres
 
 
 class DomDokumentInline(admin.StackedInline):
     model = DomDokument
     extra = 1
 
+class AdresInline(admin.StackedInline):
+    model = Adres
+    extra = 1
 
-
+@admin.register(Categori)
 class CategoriAdmin(admin.ModelAdmin):
     model = Categori
+    fields = ['description', 'name', 'slug']
     list_display = ('name', 'description', 'slug')
     prepopulated_fields = {"slug": ("name",)}
+    # exclude = ('birth_date',)  # исключить поля из показа
+    # empty_value_display = '-empty-'
+
+    # list_editable = ['slug',]
 
 
-admin.site.register(Categori, CategoriAdmin)
+# admin.site.register(Categori, CategoriAdmin)
 
 
 class DomDokumentAdmin(admin.ModelAdmin):
@@ -25,15 +32,23 @@ class DomDokumentAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name_document",)}
 
 
-
 admin.site.register(DomDokument, DomDokumentAdmin)
 
 
 class ArticulAdmin(admin.ModelAdmin):
     model = Articul
     list_display = ('art',)
-    inlines = [DomDokumentInline, ]
+    inlines = [DomDokumentInline, AdresInline,]
+
     # prepopulated_fields = {"slug": ("name_document",)}
 
 
 admin.site.register(Articul, ArticulAdmin)
+
+class AdresAdmin(admin.ModelAdmin):
+    model = Adres
+    list_display = ('arti_dokument', 'name_krai', 'gorod', 'raion', 'street', 'n_doma', 'n_kvartiri',\
+                    'n_podezda',  'is_arenda', 'descreption')
+    # list_editable = ('is_activ', 'is_prodaju', 'is_prodano',)
+
+admin.site.register(Adres, AdresAdmin)

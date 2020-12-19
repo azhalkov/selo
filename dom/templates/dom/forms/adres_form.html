@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link  rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"  crossorigin="anonymous">
+
+    <title>Добавить адрес</title>
+</head>
+<body>
+
+<a href="/">На главную</a>
+<h1>Добавить адрес</h1>
+
+<div class="card">
+<div class="card-body">
+<h4 class="card-title">Новый адрес</h4>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <p><input type="submit" value="Сохранить"></p>
+</form>
+</div>
+</div>
+</body>
+</html>
