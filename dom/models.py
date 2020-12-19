@@ -9,7 +9,11 @@ from transliterate import slugify
 
 class Articul(models.Model):
     art = models.CharField('Артикул', max_length=10, unique=True)
-
+    region = models.CharField('Код региона', max_length=3, blank=True, null=True, help_text="Трехзначное число")
+    mesto = models.CharField('Местоположение', max_length=3, blank=True, null=True, help_text="Двухзначное число")
+    kod_phone = models.CharField('Код телефона', max_length=3, blank=True, null=True, help_text="Пятизначное число")
+    nomer = models.CharField('Порядковый номер', max_length=3, blank=True, null=True, help_text="Шестизначное число")
+    slug = models.SlugField('Уникальная ссылка', max_length=16, unique=True, blank=True, null=True)
     class Meta:
         verbose_name = 'Артикул'
         verbose_name_plural = 'Артикулы'
@@ -17,6 +21,11 @@ class Articul(models.Model):
 
     def __str__(self):
         return self.art
+
+    def save(self, *args, **kwargs):
+        self.slug = '%s_%s_%s_%s' % (self.region, self.mesto, self.kod_phone, self.nomer)
+        #self.slug = slugify(self.slug)
+        super(Articul, self).save(*args, **kwargs)
 
 
 class CategoriManager(models.Manager):

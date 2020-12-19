@@ -37,6 +37,7 @@ admin.site.register(DomDokument, DomDokumentAdmin)
 
 class ArticulAdmin(admin.ModelAdmin):
     model = Articul
+    exclude = ['']
     list_display = ('art',)
     inlines = [DomDokumentInline, AdresInline,]
 
