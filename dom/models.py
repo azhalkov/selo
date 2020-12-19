@@ -7,6 +7,18 @@ from django.urls import reverse
 from transliterate import slugify
 
 
+class Articul(models.Model):
+    art = models.CharField('Артикул', max_length=10, unique=True)
+
+    class Meta:
+        verbose_name = 'Артикул'
+        verbose_name_plural = 'Артикулы'
+        ordering = ('-art',)
+
+    def __str__(self):
+        return self.art
+
+
 class CategoriManager(models.Manager):
     use_for_related_fields = True
 
@@ -40,10 +52,12 @@ class Categori(models.Model):
 
 
 class DomDokument(models.Model):
+
     name_document = models.CharField('Название документа', max_length=128, blank=True, null=True)
     filedom = models.FileField('Загрузить', upload_to='dom/dokument')
     datepub = models.DateTimeField('Дата копии', auto_now_add=True, )
     slug = models.SlugField('Ссылка', max_length=160, unique=True)
+    art_dokument = models.ForeignKey(Articul, verbose_name='artic', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return '%s ' % self.name_document
@@ -56,3 +70,19 @@ class DomDokument(models.Model):
     class Meta:
         verbose_name = 'Документ'
         verbose_name_plural = 'Документы'
+
+
+class Adres(models.Model):
+    """Адрес объекта"""
+    name_krai = models.CharField('Край, область', max_length=128)
+    gorod = models.CharField('Нас. пункт', max_length=128)
+    raion = models.CharField('Район', max_length=128)
+    street = models.CharField('Улица', max_length=128)
+    arti_dokument = models.ForeignKey(Articul, verbose_name='artic', on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return '%s ' % self.name_krai
+
+    class Meta:
+        verbose_name = 'Адрес'
+        verbose_name_plural = 'Адреса'
