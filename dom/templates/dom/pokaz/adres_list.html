@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>list_adres</title>
+</head>
+<body>
+{% for dom in doma %}
+<p>{{ dom.name_krai }}</p>
+<p>{{ dom.gorod }}</p>
+<p>{{ dom.raion }}</p>
+<p>{{ dom.street }}</p>
+<p>{{ dom.n_doma }}</p>
+<p>{{ dom.n_kvartiri }}</p>
+<p>{{ dom.n_podezda }}</p>
+
+<a>{{ dom.slug }} Слаг</a>
+<a href="/dom/adresa/{{ dom.slug }}">Ссылка</a>
+
+{% if dom.is_activ %}
+<p>Размещен на сайте</p>
+{% endif %}
+
+{% if  dom.is_prodaju  %}
+<p>Продается</p>
+{% endif %}
+
+{% if  dom.is_prodano  %}
+<p>Продан</p>
+{% endif %}
+
+{% if  dom.is_arenda  %}
+<p>Аренда</p>
+{% endif %}
+
+
+
+<p>{{ dom.descreption }}</p>
+<p>{{ dom.arti_dokument }}</p>
+
+<hr>
+<hr>
+
+{% endfor%}
+</body>
+</html>

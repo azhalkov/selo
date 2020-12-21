@@ -10,10 +10,12 @@ from transliterate import slugify
 class Articul(models.Model):
     art = models.CharField('Артикул', max_length=10, unique=True)
     region = models.CharField('Код региона', max_length=3, blank=True, null=True, help_text="Трехзначное число")
-    mesto = models.CharField('Местоположение', max_length=3, blank=True, null=True, help_text="Двухзначное число")
-    kod_phone = models.CharField('Код телефона', max_length=3, blank=True, null=True, help_text="Пятизначное число")
-    nomer = models.CharField('Порядковый номер', max_length=3, blank=True, null=True, help_text="Шестизначное число")
+    mesto = models.CharField('Местоположение', max_length=2, blank=True, null=True, help_text="Двухзначное число")
+    kod_phone = models.CharField('Код телефона', max_length=5, blank=True, null=True, help_text="Пятизначное число")
+    nomer = models.CharField('Порядковый номер', max_length=6, blank=True, null=True,
+                             help_text="Шестизначное число", default='000000')
     slug = models.SlugField('Уникальная ссылка', max_length=16, unique=True, blank=True, null=True)
+
     class Meta:
         verbose_name = 'Артикул'
         verbose_name_plural = 'Артикулы'
@@ -24,6 +26,7 @@ class Articul(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = '%s_%s_%s_%s' % (self.region, self.mesto, self.kod_phone, self.nomer)
+        self.art = self.slug.replace('_', '')
         #self.slug = slugify(self.slug)
         super(Articul, self).save(*args, **kwargs)
 
@@ -87,7 +90,7 @@ class Adres(models.Model):
     gorod = models.CharField('Нас. пункт', max_length=128)
     raion = models.CharField('Район', max_length=128)
     street = models.CharField('Улица', max_length=128)
-    n_doma = models.CharField('№ дома', max_length=128, blank=True, null=True)
+    n_doma = models.CharField('№ дома', max_length=10, default=0)
     n_kvartiri = models.CharField('№ квартиры', max_length=128, blank=True, null=True, default=0)
     n_podezda = models.CharField('№ подъезда', max_length=128, blank=True, null=True, default=0)
     slug = models.SlugField('Ссылка', max_length=160, unique=True, blank=True, null=True)

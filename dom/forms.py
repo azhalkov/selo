@@ -5,7 +5,7 @@ from .models import *
 class ArtikulForm(forms.ModelForm):
     class Meta:
         model = Articul
-        exclude = ['art',]
+        exclude = ['art', 'nomer', 'slug']
 
 
 class CategoriForm(forms.ModelForm):
@@ -23,7 +23,7 @@ class DomDokumentForm(forms.ModelForm):
 class AdresForm(forms.ModelForm):
     class Meta:
         model = Adres
-        exclude = ['is_prodaju', ]
+        exclude = ['is_prodaju', 'is_activ', 'is_prodano', 'is_arenda', 'slug' ]
         ordering = "-arti_dokument"
 
 

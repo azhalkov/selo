@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
 from . import views
-from .views import CategoriView, DomDokumentView, AdresView, ArtikulView
+from .views import CategoriView, DomDokumentView, AdresView, ArtikulView, AdresDetailView
 
 urlpatterns = [
     # path('', views.index, name='index'),
@@ -17,10 +17,10 @@ urlpatterns = [
     path('adres/', AdresView.as_view(template_name='dom/forms/adres_form.html'), name='adres'),
     path('artikul/', ArtikulView.as_view(template_name='dom/forms/articul_form.html'), name='artikul'),
     #      name='dokument'),
-    # path('nedvijimost/', views.nedvijimostlist, name='nedvijimost'),
+    path('adresa/', views.AdresListView.as_view(), name='adresa'),
     # path('nedvijimost/<int:pk>/', HouseLokationDetailView.as_view(), name='detail'),
     # # path('nedvijimost/<int:pk>/', FotoDomDetailView.as_view(), name='foto' ),
-    # path('nedvijimost/<slug:slug>/', HouseLokationDetailView.as_view(), name='sluga'),
+    path('adresa/<slug:slug>/', AdresDetailView.as_view(), name='sluga'),
     # path('nedvijimost/info/<slug:slug>/', MenegerDetailView.as_view(), name='meneger'),
     # path('poisk/', views.poisk, name='poisk'),
     # path('bigpoisk/', Bigpoisk.as_view(), name='bigpoisk'),
