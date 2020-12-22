@@ -7,37 +7,38 @@
 </head>
 <body>
 {% for dom in doma %}
-<p>{{ dom.name_krai }}</p>
-<p>{{ dom.gorod }}</p>
-<p>{{ dom.raion }}</p>
-<p>{{ dom.street }}</p>
-<p>{{ dom.n_doma }}</p>
-<p>{{ dom.n_kvartiri }}</p>
-<p>{{ dom.n_podezda }}</p>
+<p>1{{ dom.name_krai }}</p>
+<p>2{{ dom.gorod }}</p>
+<p>3{{ dom.raion }}</p>
+<p>4{{ dom.street }}</p>
+<p>5{{ dom.n_doma }}</p>
+<p>6{{ dom.n_kvartiri }}</p>
+<p>7{{ dom.n_podezda }}</p>
 
-<a>{{ dom.slug }} Слаг</a>
+<a>8{{ dom.slug }} Слаг</a>
 <a href="/dom/adresa/{{ dom.slug }}">Ссылка</a>
 
 {% if dom.is_activ %}
-<p>Размещен на сайте</p>
+<p>9Размещен на сайте</p>
 {% endif %}
 
 {% if  dom.is_prodaju  %}
-<p>Продается</p>
+<p>10Продается</p>
 {% endif %}
 
 {% if  dom.is_prodano  %}
-<p>Продан</p>
+<p>11Продан</p>
 {% endif %}
 
 {% if  dom.is_arenda  %}
-<p>Аренда</p>
+<p>12Аренда</p>
 {% endif %}
 
 
 
-<p>{{ dom.descreption }}</p>
-<p>{{ dom.arti_dokument }}</p>
+<p>13{{ dom.descreption }}</p>
+<p>14{{ dom.arti_dokument }}</p>
+
 
 <hr>
 <hr>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <!-- Блок мета для каждой страницы можно изменить мета -->
+    {% block metaname %}
+    <link rel="stylesheet" type="text/css" href="{% static '/dom/css/saxar.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock metaname %}
+<!--     Блок заголовка страницы   -->
+    <title>{% block title %}index{% endblock title %}</title>
+</head>
+<body>
+<!-- Блок для сообщений -->
+{% block verx %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Внимание!</strong> Блок полезных сообщений.
+  </div>
+{% endblock verx %}
+
+
+<!-- блок авторизации пользователя-->
+{% block auntifikate %}
+<div class="container mt-3 bg-success ">
+    <div class="row">
+        {% if user.is_authenticated %}
+        <div class="col-sm-2">
+            <p class="badge badge-success mt-3"> Благополучия {{ user.username }}!
+            <a href="{% url 'logout' %}" class="badge badge-light">Выход из учетной записи</a></p>
+
+        </div>
+        {% else %}
+        <a href="{% url 'index' %}" class="badge badge-success">Смотреть как гость</a>
+        <div class="col-sm-3">
+            <a href="{% url 'login' %}" class="badge badge-success">Войти</a>
+            {% block main %}
+            {% endblock %}
+
+            <a href="{% url 'signup' %}" class="badge badge-success">Зарегистрироваться</a>
+            {% block registr %}
+            {% endblock registr %}
+        </div>
+        {% endif %}
+
+    </div>
+    {% endblock %}
+</div>
+
+
+<!-- Панель меню -->
+{% block menu %}
+{% include "dom/menu.html" %}
+{% endblock menu %}
+
+</body>
+</html>

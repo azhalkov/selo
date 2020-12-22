@@ -1,15 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'dom/index.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}Sign Page{% endblock title %}
+{% block registr %}
+<div class="card">
+<div class="card-body">
+<h4 class="card-title">Простая регистрация</h4>
 
-{% block content %}
-    <h2>Sign Page</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Register</button>
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary btn-block">Зарегистрировать</button>
         <br><br>
-        <a href="{% url 'home' %}">Home</a>
     </form>
-{% endblock content %}
+    </div>
+</div>
+{% endblock registr %}
+
 

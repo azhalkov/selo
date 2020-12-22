@@ -10,6 +10,10 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
 # Create your views here.
+""" Страница приложения дом"""
+def index(request):
+    return render(request, 'dom/index.html')
+
 
 """Форма на сайт модели Articul"""
 class ArtikulView(View):
@@ -125,3 +129,22 @@ class AdresDetailView(DetailView):
         return context
 
 
+class PoiskArtikula(ListView):
+    """Класс поиска по артикулу"""
+    model = Articul
+
+    def poisk(request):
+        search_query = request.GET.get('search', '')
+        if search_query:
+            doma = Articul.objects.filter(name__icontains=search_query)  # поиск расположен в самом верху функции
+        else:
+            doma = Articul.objects.all()
+
+        return render(request, 'dom/pokaz/poisk_list.html', {'doma': doma})
+    # def get_queryset(self):
+    #    return Articul.objects.filter(art__icontains=self.request.GET.get('q'))
+    #
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super().get_context_data(*args, *kwargs)
+    #     context['q'] = f'q={self.request.GET.get("q")}&'
+    #     return  context

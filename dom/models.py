@@ -7,9 +7,21 @@ from django.urls import reverse
 from transliterate import slugify
 
 
+class CategoriManager(models.Manager):
+    use_for_related_fields = True
+
+    def search(self, query=None):
+        qs = self.get_queryset()
+        if query:
+            or_lookup = (Q(title__icontains=query) | Q(content__icontains=query))
+            qs = qs.filter(or_lookup)
+        return qs
+
+
 class Articul(models.Model):
-    art = models.CharField('Артикул', max_length=10, unique=True)
-    region = models.CharField('Код региона', max_length=3, blank=True, null=True, help_text="Трехзначное число")
+    art = models.CharField('Артикул', max_length=10, unique=True, blank=True, null=True)
+    region = models.CharField('Код региона', max_length=3, blank=True, null=True, help_text="Трехзначное "
+                               "число - Краснодарский край 023 или 123 ")
     mesto = models.CharField('Местоположение', max_length=2, blank=True, null=True, help_text="Двухзначное число")
     kod_phone = models.CharField('Код телефона', max_length=5, blank=True, null=True, help_text="Пятизначное число")
     nomer = models.CharField('Порядковый номер', max_length=6, blank=True, null=True,
@@ -30,16 +42,6 @@ class Articul(models.Model):
         #self.slug = slugify(self.slug)
         super(Articul, self).save(*args, **kwargs)
 
-
-class CategoriManager(models.Manager):
-    use_for_related_fields = True
-
-    def search(self, query=None):
-        qs = self.get_queryset()
-        if query:
-            or_lookup = (Q(title__icontains=query) | Q(content__icontains=query))
-            qs = qs.filter(or_lookup)
-        return qs
 
 
 class Categori(models.Model):
@@ -104,9 +106,13 @@ class Adres(models.Model):
     def __str__(self):
         return '%s%s ' % (self.gorod,self.arti_dokument)
 
+    def get_absolute_url(self):
+        return reverse('adresa_detail', args=(self.slug,))
+
     def save(self, *args, **kwargs):
         self.slug = '%s_%s' % (self.gorod, self.arti_dokument)
         self.slug = slugify(self.slug)
+
         super(Adres, self).save(*args, **kwargs)
 
     class Meta:

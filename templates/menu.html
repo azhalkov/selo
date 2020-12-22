@@ -1,0 +1,61 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  {% if user.is_superuser %}
+  <a class="navbar-brand" href="/admin/">Админ</a>
+  {% endif %}
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'artikul' %}"> Новый артикул <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'new_document' %} ">Добавить документ</a>
+      </li>
+
+       <li class="nav-item">
+        <a class="nav-link" href="# ">  Сканировать </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#">Магазин</a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Личное
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="">Войти</a>
+          <a class="dropdown-item" href="">Мой профиль</a>
+          <a class="dropdown-item" href="#"> Регистрация</a>
+
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="">Индекс</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="" href="https://www.youtube.com/watch?v=n8If3gqWztM" tabindex="-1" aria-disabled="true">Размещение на хостинге</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0" action="">
+      <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+    </form>
+  </div>
+
+</nav>
+
+
+<a href="admin/">админ</a>
+<a href="{% url 'artikul' %}" class="stretched-link text-succes">Новый артикул</a>
+<a href="{% url 'new_document' %}">Добавить документ</a>
+
+<a href="{% url 'new_categori' %}">Добавить категорию</a>
+<a href="{% url 'adres' %}">Новый адрес</a>
+<a href="{% url 'adresa' %}">Список</a>
+<a href="{% url 'poisk' %}">Поиск</a>
