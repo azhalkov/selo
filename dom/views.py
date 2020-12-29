@@ -5,7 +5,6 @@ from django.http import HttpResponseRedirect
 from django.views import View
 from .models import Categori, DomDokument, Adres, Articul
 from .forms import CategoriForm, DomDokumentForm, AdresForm, ArtikulForm
-from django.utils import timezone
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 

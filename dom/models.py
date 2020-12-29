@@ -19,6 +19,7 @@ class CategoriManager(models.Manager):
 
 
 class Articul(models.Model):
+    """Планируется как поле для поиска объектов """
     art = models.CharField('Артикул', max_length=10, unique=True, blank=True, null=True)
     region = models.CharField('Код региона', max_length=3, blank=True, null=True, help_text="Трехзначное "
                                "число - Краснодарский край 023 или 123 ")
