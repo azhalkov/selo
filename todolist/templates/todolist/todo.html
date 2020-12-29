@@ -1,0 +1,73 @@
+{% extends 'todolist/base.html' %}
+{% block content %}
+<div class="columns has-background-black-ter is-centered has-text-white-bis" style="min-height:101vh;">
+	<!-- на самом деле можно было обойтись и hero, но я обратился к inline-css -->
+	<div class="column is-half">
+		<h1 class="is-size-3 has-text-centered"> Список дел </h1>
+		<form action="" method="post">
+			{% csrf_token %}
+			<!-- csrf для базовой безопасности нашего приложения -->
+			<div class="field has-text-centered">
+				<label for="description" class="label has-text-white-bis">Введите дело</label>
+				<div class="control">
+					<input type="text" id="description" class="input" placeholder="Чем собираетесь заняться?"
+						   name="description" required>
+				</div>
+			</div>
+			<div class="columns">
+				<div class="column">
+					<label for="category">Категории</label>
+					<div class="control">
+						<div class="select">
+							<select id="category" class="select" name="category_select" required>
+								<!--поставишь такой required, и не надо пустые поляв бд валидизировать. Не повторять в продакшене-->
+								<option class="disabled" value="">Выберите категорию дела</option>
+								{% for category in categories %}
+								<option class="" value="{{ category.name }}" name="{{ category.name }}">
+									{{ category.name }}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="column">
+					<label for="dueDate">Выберите дату</label>
+					<input type="date" id="dueDate" class="input calendar" name="date" required>
+				</div>
+			</div>
+			<div class="column">
+				<div class="field">
+					<button class="button is-primary" name="Add" type="submit">
+                    	<span class="icon is-small">
+                        	<i class="fa fa-plus"></i>
+                    	</span>
+						<span>Добавить задание</span>
+					</button>
+					<button class="button is-link" name="Delete" formnovalidate="" type="submit">
+                    	<span class="icon is-small">
+                        	<i class="fa fa-trash-o"></i>
+                    	</span>
+						<span>
+                        	Удалить дело
+                    	</span>
+					</button>
+				</div>
+			</div>
+			<div class="list is-hoverable">
+				{% for todo in todos %}
+				<!-- шаблонный язык django- for loop -->
+				<div class="list-item">
+					<label class="checkbox">
+						<input type="checkbox" class=" checkbox" name="checkedbox" value="{{ todo.id }}">
+						<span class="complete-">{{ todo.title }}</span>
+					</label>
+					<span class=" category-{{ todo.category }} has-text-info">{{ todo.category }}</span>
+					<strong class="is-pulled-right"><i class="fa fa-calendar"></i>{{ todo.created }} -
+						{{ todo.due_date }}</strong>
+				</div>
+				{% endfor %}
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}

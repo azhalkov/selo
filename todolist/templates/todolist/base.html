@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title> Приложение для дел</title>
+  {% load static %}
+	<link rel="shortcut icon" type="image/png" href="{% static 'favicon.png' %}"/>
+   <link rel="stylesheet" type="text/css" href="{% static 'bulma.min.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<div django-app="TaskManager">
+	<nav class ="navbar is-success" role="navigation" aria-label="main navigation">
+     	<div class="navbar-menu ">
+        	<div class="navbar-start">
+        	<a class="navbar-item" href=" {% url 'zadacha' %}"> Категории</a>
+        	<a class="navbar-item" href="{% url 'TodoList' %}"> Список дел </a>
+        	</div>
+         </div>
+	</nav>
+<!--     в блок контент мы будем подгружать наши странички категорий и тудушек-->
+{% block content %}
+{% endblock %}
+</div>
+</body>
+</html>
