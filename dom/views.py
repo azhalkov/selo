@@ -1,5 +1,5 @@
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models import QuerySet
+from django.db.models import QuerySet, Q
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import View
@@ -118,6 +118,7 @@ class AdresListView(ListView):
             queryset = queryset.order_by(*ordering)
         return queryset
 
+
 class AdresDetailView(DetailView):
 
     model = Adres
@@ -131,20 +132,4 @@ class AdresDetailView(DetailView):
 
 class PoiskArtikula(ListView):
     """Класс поиска по артикулу"""
-    model = Articul
-
-    def poisk(request):
-        search_query = request.GET.get('search', '')
-        if search_query:
-            doma = Articul.objects.filter(name__icontains=search_query)  # поиск расположен в самом верху функции
-        else:
-            doma = Articul.objects.all()
-
-        return render(request, 'dom/pokaz/poisk_list.html', {'doma': doma})
-    # def get_queryset(self):
-    #    return Articul.objects.filter(art__icontains=self.request.GET.get('q'))
-    #
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super().get_context_data(*args, *kwargs)
-    #     context['q'] = f'q={self.request.GET.get("q")}&'
-    #     return  context
+    pass

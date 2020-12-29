@@ -1,48 +1,83 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static '/dom/css/sugor.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>list_adres</title>
 </head>
 <body>
+
+
+
+
 {% for dom in doma %}
-<p>1{{ dom.name_krai }}</p>
-<p>2{{ dom.gorod }}</p>
-<p>3{{ dom.raion }}</p>
-<p>4{{ dom.street }}</p>
-<p>5{{ dom.n_doma }}</p>
-<p>6{{ dom.n_kvartiri }}</p>
-<p>7{{ dom.n_podezda }}</p>
 
-<a>8{{ dom.slug }} Слаг</a>
-<a href="/dom/adresa/{{ dom.slug }}">Ссылка</a>
+<div class="w3-col m4 l3 w3-margin-left">
+    <div class="w3-card-4 w3-section">
+        <div class="w3-container w3-success">
 
-{% if dom.is_activ %}
-<p>9Размещен на сайте</p>
-{% endif %}
+            <img src="#" class="card-img-top" alt="Рисунок">
 
-{% if  dom.is_prodaju  %}
-<p>10Продается</p>
-{% endif %}
-
-{% if  dom.is_prodano  %}
-<p>11Продан</p>
-{% endif %}
-
-{% if  dom.is_arenda  %}
-<p>12Аренда</p>
-{% endif %}
+                <p class="card-title">1{{ dom.name_krai }}</p>
 
 
 
-<p>13{{ dom.descreption }}</p>
-<p>14{{ dom.arti_dokument }}</p>
+            <p>1{{ dom.name_krai }}</p>
+            <p class="card-text">2{{ dom.gorod }}</p>
+            <p>3{{ dom.raion }}</p>
+            <p>4{{ dom.street }}</p>
+            <p>5{{ dom.n_doma }}</p>
+            <p>6{{ dom.n_kvartiri }}</p>
+            <p>7{{ dom.n_podezda }}</p>
+
+            <a>8{{ dom.slug }} Слаг</a>
+            <a href="/dom/adresa/{{ dom.slug }}">Ссылка</a>
+
+            {% if dom.is_activ %}
+            <p>9Размещен на сайте</p>
+            {% endif %}
+
+            {% if  dom.is_prodaju  %}
+            <p>10Продается</p>
+            {% endif %}
+
+            {% if  dom.is_prodano  %}
+            <p>11Продан</p>
+            {% endif %}
+
+            {% if  dom.is_arenda  %}
+            <p>12Аренда</p>
+            {% endif %}
 
 
-<hr>
-<hr>
 
+            <p>13{{ dom.descreption }}</p>
+            <p>14{{ dom.arti_dokument }}</p>
+
+
+            <hr>
+                </div>
+
+        </div>
+    </div>
+</div>
 {% endfor%}
+
+
+
+<form class="form-inline my-2 my-lg-0" action="{% url 'poisk' %}" method="get">
+    <input class="form-control mr-sm-2" type="search" name="q" placeholder="Ищу" aria-label="Поиск">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
+

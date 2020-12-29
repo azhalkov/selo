@@ -7,29 +7,9 @@
 </head>
 <body>
 
-{% block page %}
-        <h1>Поиск</h1>
-        {% if object_list %}
-            {% for object in object_list %}
-                <div>
-                    <a href="{{ object.get_absolute_url }}">
-                        <h2>{{ object.itle }}</h2>
-                    </a>
-                    {{ object.content|safe }}
-                    <p><a class="btn btn-default btn-sm" href="{{ object.get_absolute_url }}">Читать далее</a></p>
-                </div>
-            {% endfor %}
-
-        {% else %}
-            <p>Не найдено публикаций по вашему запросу<br>Попробуйте повторить запрос с другой формулировкой</p>
-        {% endif %}
-    {% endblock %}
-
-
-
-<form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+<form class="form-inline my-2 my-lg-0" action="{% url 'poisk' %}" method="get">
+      <input class="form-control mr-sm-2" type="search" name="q" placeholder="Ищу" aria-label="Поиск">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
     </form>
 
 

@@ -89,7 +89,7 @@ class DomDokument(models.Model):
 class Adres(models.Model):
     """Адрес объекта"""
     name_krai = models.CharField('Край, область', max_length=128)
-    gorod = models.CharField('Нас. пункт', max_length=128)
+    gorod = models.CharField('Нас. пункт', max_length=128, )
     raion = models.CharField('Район', max_length=128)
     street = models.CharField('Улица', max_length=128)
     n_doma = models.CharField('№ дома', max_length=10, default=0)

@@ -22,7 +22,7 @@ urlpatterns = [
     # # path('nedvijimost/<int:pk>/', FotoDomDetailView.as_view(), name='foto' ),
     path('adresa/<slug:slug>/', AdresDetailView.as_view(), name='adresa_detail'),
     # path('nedvijimost/info/<slug:slug>/', MenegerDetailView.as_view(), name='meneger'),
-    path('poisk/', PoiskArtikula.as_view(template_name='dom/pokaz/poisk_list.html'), name='poisk'),
+    path('poisk/', PoiskArtikula.as_view(), name='poisk'),
     # path('bigpoisk/', Bigpoisk.as_view(), name='bigpoisk'),
     # path('shablon/', views.shablon, name='shablon'),
     # # path('search/', )
