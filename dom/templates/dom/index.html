@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <!-- Блок мета для каждой страницы можно изменить мета -->
     {% block metaname %}
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" type="text/css" href="{% static '/dom/dom.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -24,6 +24,9 @@
     <strong>Внимание!</strong> Блок полезных сообщений.
   </div>
 {% endblock verx %}
+
+
+
 
 
 <!-- блок авторизации пользователя-->
@@ -53,11 +56,13 @@
     {% endblock %}
 </div>
 
-
 <!-- Панель меню -->
 {% block menu %}
 {% include "dom/menu.html" %}
 {% endblock menu %}
 
+
+<p>абзац</p>
+<h1> заголовок</h1>
 </body>
 </html>
