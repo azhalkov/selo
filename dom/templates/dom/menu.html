@@ -10,11 +10,15 @@
       </li>
 
        <li class="nav-item">
-        <a class="nav-link" href="{% url 'poisk' %}"> Поиск </a>
+        <a class="nav-link" href="#"> Поиск </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link" href="{% url 'TodoList' %}">Магазин</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'search' %}">Артикул поиск</a>
       </li>
 
       <li class="nav-item dropdown">
@@ -37,11 +41,14 @@
         <a class="" href="https://www.youtube.com/watch?v=n8If3gqWztM" tabindex="-1" aria-disabled="true">Размещение на хостинге</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0" action="">
-      <p>Вставить в action</p>
-      <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
-    </form>
+
+
+
+<form action="{% url 'search' %}" method="get">
+  <input name="q" type="text" placeholder="Найти..." >
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+</form>
+
 
 
 </nav>

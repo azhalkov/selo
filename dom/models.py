@@ -20,14 +20,14 @@ class CategoriManager(models.Manager):
 
 class Articul(models.Model):
     """Планируется как поле для поиска объектов """
-    art = models.CharField('Артикул', max_length=10, unique=True, blank=True, null=True)
+    art = models.CharField('Артикул', max_length=16, unique=True, blank=True, null=True)
     region = models.CharField('Код региона', max_length=3, blank=True, null=True, help_text="Трехзначное "
                                "число - Краснодарский край 023 или 123 ")
     mesto = models.CharField('Местоположение', max_length=2, blank=True, null=True, help_text="Двухзначное число")
     kod_phone = models.CharField('Код телефона', max_length=5, blank=True, null=True, help_text="Пятизначное число")
     nomer = models.CharField('Порядковый номер', max_length=6, blank=True, null=True,
                              help_text="Шестизначное число", default='000000')
-    slug = models.SlugField('Уникальная ссылка', max_length=16, unique=True, blank=True, null=True)
+    slug = models.SlugField('Уникальная ссылка', max_length=19, unique=True, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Артикул'
@@ -103,6 +103,8 @@ class Adres(models.Model):
     is_arenda = models.BooleanField('В аренду', default=False, blank=True, null=True)
     descreption = models.TextField('Объявление', max_length=5000, blank=True, null=True)
     arti_dokument = models.ForeignKey(Articul, verbose_name='artic', on_delete=models.SET_NULL, null=True)
+    categorii = models.ForeignKey(Categori, verbose_name='categor', on_delete=models.SET_NULL, null=True)
+
 
     def __str__(self):
         return '%s%s ' % (self.gorod,self.arti_dokument)
@@ -119,3 +121,50 @@ class Adres(models.Model):
     class Meta:
         verbose_name = 'Адрес'
         verbose_name_plural = 'Адреса'
+
+
+
+
+
+
+
+
+
+
+
+
+
+# from django.db import models
+#
+# class Blog(models.Model):
+#     name = models.CharField(max_length=100)
+#     tagline = models.TextField()
+#
+#     def __str__(self):
+#         return self.name
+#
+# class Author(models.Model):
+#     name = models.CharField(max_length=200)
+#     email = models.EmailField()
+#
+#     def __str__(self):
+#         return self.name
+#
+# class Entry(models.Model):
+#     blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
+#     headline = models.CharField(max_length=255)
+#     body_text = models.TextField()
+#     pub_date = models.DateField()
+#     mod_date = models.DateField()
+#     authors = models.ManyToManyField(Author)
+#     number_of_comments = models.IntegerField()
+#     number_of_pingbacks = models.IntegerField()
+#     rating = models.IntegerField()
+#
+#     def __str__(self):
+#         return self.headline
+#
+#
+
+
+

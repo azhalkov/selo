@@ -129,6 +129,20 @@ class AdresDetailView(DetailView):
         return context
 
 
-class PoiskArtikula(ListView):
+class PoiskAdres(ListView):
     """Класс поиска по артикулу"""
-    pass
+    model = Adres
+    template_name = 'dom/search_list.html'
+
+
+class SearchResultsView(ListView):
+    model = Articul
+    template_name = 'dom/search_list.html'
+    context_object_name = 'artikuli'
+
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        artikuli = Articul.objects.filter(region__istartswith=query)
+        return artikuli
+

@@ -1,0 +1,736 @@
+
+"""
+Скрипт РЕДЕРИКТ
+<script language = 'javascript'>
+  var delay = 5000;
+  setTimeout("document.location.href='http://127.0.0.1:8000/privoz/konsultanti/'", delay);
+</script>
+"""
+
+
+Вот пример для простой перезагрузки страницы, через определенный интервал времени:
+<meta http-equiv="refresh" content="5">
+5 - временной интервал обновления страницы (в секундах).
+Пользователя можно перевести на другой сайт, также через определенное время:
+<meta http-equiv="refresh" content="5;URL=http:/tradebenefit.ru">
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+НАЧНИ ПРОЕКТ С ЭТОГО
+https://django.fun/tips/polzovatelskaya-model-user/
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Выполнив команду #pip freeze > requirements.txt
+вы сразу получите файл в требуемом формате.
+
+python manage.py runserver  (Запустить сервер)
+
+Команды для DJANGO python -m django --version(проверить версию джанго)
+django-admin startproject mysite(создать проект)
+cd sait_avtoemali(перейти в папку проекта)
+python manage.py startapp magazin(создать приложенние)
+Прописываем приложение в site_avtoemali/settings.py/INSTALLED_APPS/'magazin'
+Создаем папки templates/magazin/base.html
+              static/magazin/images
+Создаем файл urls.py
+Подключаем приложение к БД python manage.py makemigrations magazin
+                           python manage.py sqlmigrate magazin 0001
+                           python manage.py migrate
+                           python manage.py createsuperuser(создание суперпользователя БД)
+
+
+                  URLS
+
+
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path
+from . import views
+
+"""Изменить заголовок в админке(администрирование django) - admin.site.site_header"""
+admin.site.site_header = 'НЕДВИЖИМОСТЬ'
+
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('konsultanti/', KonsultantListView.as_view(), name='konsultant_list'),
+    path('konsultanti/<int:pk>/',  KonsultantDetailView.as_view(), name='konsultant_detail'),
+
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)/
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+В urls.py вы можете переопределить 3 наиболее важные переменные:
+admin.site.site_header = 'My project'                    # default: "Django Administration"
+admin.site.index_title = 'Features area'                 # default: "Site administration"
+admin.site.site_title = 'HTML title from adminsitration' # default: "Django site admin"
+Документация  -  https://docs.djangoproject.com/en/3.1/ref/contrib/admin/#adminsite-attributes%23adminsite-attributes
+
+
+
+                  MODELS
+
+
+    def __str__(self):
+        return '%s' % self.phone
+
+    class Meta:
+        verbose_name = 'Консультант'
+        verbose_name_plural = 'Консультанты'
+
+
+                   ADMIN
+
+Важно https://webdevblog.ru/chto-nuzhno-znat-chtoby-upravlyat-polzovatelyami-v-django-admin/
+
+from .models import Shop, Produсt, Photo
+class ShopAdmin(admin.ModelAdmin):
+    model = Shop
+    list_display = ('name', 'url',)
+    list_filter = ('name', 'url',) #
+    prepopulated_fields = {"slug": ("name",)}
+    search_fields = ('company',)  # Строка поиска без запятой выдает ошибку
+    # prepopulated_fields = {"slug": ("name",)} # автоматом создает ссылку из указанных полей
+    # list_editable = ['phone', ] # Возможность редактировать на лицево странице добовляет кнопку сохранить
+    search_fields = ('phone',)  # Строка поиска без запятой выдает ошибку
+admin.site.register(Shop,ShopAdmin)
+
+ВЫВОД ИЗОБРАЖЕНИЯ В АДМИНКЕ
+/admin.py
+ readonly_fields = ('get_image',) # Добавит поле в админку
+ list_display = (get_image, ...) # добавить метод в лист дисплей
+ def get_image(self, obj):
+        return mark_safe(f'<img src={obj.avatar.url} width=50 height=60 >')
+ get_image.short_description = 'Изображение'
+
+
+
+
+
+
+
+
+      APPS
+
+НАЗВАНИЕ НА РУССКОМ ЯЗЫКЕ
+"""Изменить в админке название приложения на русский язык"""
+# dom/apps.py
+from django.apps import AppConfig
+class DomConfig(AppConfig):
+    name = 'dom'                # Здесь указываем исходное имя приложения
+    verbose_name = 'Строения'   # А здесь, имя которое необходимо отобразить в админке
+Большая часть сделана, класс описан. Теперь надо дать понять django, что он существует и как его найти. Для этого прописываем следующую строку в файле interstore/__init__.py:
+# dom/__init__.py
+default_app_config = 'dom.apps.DomConfig'
+
+
+
+                   FORMS
+
+from django import forms
+from django.forms.models import ModelForm
+from .models import *
+
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Komnata
+        adres = forms.CharField(label='Адрес установки', max_length=250,)
+        # status = forms.ModelChoiceField(choices=Status, blank=False,)
+        dlina = forms.IntegerField(label='Длинна ', help_text="Введите длинну комнаты в сантиметрах")
+        shirina = forms.IntegerField(label='Ширина ',
+                                           help_text="Введите ширину комнаты в сантиметрах")
+        ploshad = forms.DecimalField(label='Площадь комнаты', max_digits=7, decimal_places=2,)
+        perimetr = forms.DecimalField(label='Периметр комнаты', max_digits=5, decimal_places=2,)
+        cena_ploshad = forms.IntegerField(label='Цена за квадрат',)
+        ploshad_itog = forms.DecimalField(label='Сумма за площадь', max_digits=7, decimal_places=2,
+                                           )
+        perimetr_cena = forms.IntegerField(label='Цена за периметр', )
+        perimetr_itog = forms.DecimalField(label='Сумма за периметр', max_digits=7, decimal_places=2,
+                                            )
+        transport = forms.IntegerField(label='Транспортные расходы', )
+        doprasxod = forms.IntegerField(label='Дополнительные расходы',)
+        lampa = forms.IntegerField(label='Количество люстр', )
+        cena_lamp = forms.IntegerField(label='Стоимость установки светильника', )
+        itog_lamp = forms.IntegerField(label='Всего за установку светильников',)
+        itogo = forms.DecimalField(label='Итого потолок', max_digits=10, decimal_places=1, )
+        slug = forms.SlugField(label='Ссылка', max_length=50,)
+        fields = ('adres', 'status', 'dlina', 'shirina', 'ploshad', 'perimetr', 'cena_ploshad',
+                                                                                'slug',
+                  'ploshad_itog', 'perimetr_cena', 'perimetr_itog', 'transport', 'doprasxod',
+                  'lampa', 'cena_lamp', 'itog_lamp', 'itogo', 'slug')
+        # fields = ('name', 'company', 'url', 'currencies', 'categories', 'offers', 'slug')
+        exclude = ["status"]  # Исключить ничего отбразит все поля модели
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+          HTML
+ {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static'privoz/style.css'">
+  У меня он не работает. при отработке в html(где применяется данный участок) добавляются следующие знаки: %20.
+Исправить данную проблему вышло только заменой внутренних парных кавычек на одинарные. То бишь должно выглядеть так:
+<link rel="stylesheet" href="{% static 'css/styles.css' %}"/>
+
+<img src=" {{ object.avatar.url }}" alt="Мойша" width="100" height="100">
+
+Приложения для работы с файлами exel(xlrd, django-import-export)
+https://github.com/edcrewe/django-csvimport
+https://github.com/edcrewe/django-csvimport
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+       HTML FORMS
+
+<form action="" method="post">
+{% csrf_token %}
+{{ form.as_p}}
+    <hr>
+    <hr>
+    <p>Можно каждое поле прописать отдельно</p>
+    <label>Описание</label><br>
+    <p>{{ form.descreption }}</p>
+    <label>Введите</label><br>
+    <p>{{ form.name }}</p>
+<hr>
+    <hr>
+
+    <p><input type="submit"></p>
+    </form>
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+ДЛЯ ПЕРЕДАЧИ КАРТИНКИ
+    Забыт параметр файлов request.FILES
+form = NoteForm(request.POST, request.FILES)
+(код в html)
+А так же в HTML теге формы, забыт параметр того, что форма работает с файлами
+<form method="POST" enctype="multipart/form-data">
+
+
+                             SETTINGS
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static"),]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+django-admin collectstatic
+
+                             URLS(В главной папке)
+ from django.conf import settings
+from django.conf.urls.static import static
+
+urlpatterns = [
+    # Project url patterns...
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+                                VIEWS
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.views import generic
+from django.utils import timezone
+from .models import Choice, Question
+
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        """
+        Return the last five published questions (not including those set to be
+        published in the future).
+        """
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:5]
+
+class KonsultantListView(generic.ListView):
+    model = Konsultant
+    paginate_by = 100  # если нужна разбивка на страницы
+    template_name = 'privoz/konsultant_list.html'
+
+    def get_queryset(self):
+        return Konsultant.objects.all()
+
+
+class DetailView(generic.DetailView):
+    model = Question
+    template_name = 'polls/detail.html'
+
+
+class ResultsView(generic.DetailView):
+    model = Question
+    template_name = 'polls/results.html'
+
+
+def vote(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    try:
+        selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    except (KeyError, Choice.DoesNotExist):
+        # Redisplay the question voting form.
+        return render(request, 'polls/detail.html', {
+            'question': question,
+            'error_message': "Вы не сделали выбор.",
+        })
+    else:
+        selected_choice.votes += 1
+        selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+ VIEWS (FORMS)
+
+def komnata(request):
+    form = ProductForm(request.POST or None)
+    if request.method == 'POST' and form.is_valid:
+        print(request.POST)
+        form.save()
+        return redirect("/komnata/")
+    else:
+        form = ProductForm()
+    return render(request, "potolki/komnata_forms.html", {'form':form})
+
+
+ICON
+<link rel="shortcut icon" href="{% static '/privoz/images/favicon.ico' %}" type="image/x-icon">
+
+
+                                ОТОБРАЖЕНИЕ НЕСКОЛЬКИХ МОДЕЛЕЙ(VIEWS)
+
+  def nedvijimostList(request) :
+    doma = HouseLokation.objects.all()
+    foto = PhotoHouse.objects.all()
+    context = {'doma':doma, 'foto':foto}
+    return render(request, 'dom/list_nedvijimost.html', context)
+
+----------------------------------------------------------------------------------
+
+
+                         DETAILVIEWS
+ dom/views
+
+    class HouseLokationDetailView(DetailView):
+    model = HouseLokation
+    template_name = 'dom/detail/dom_detail.html'
+    # slug_field =
+    context_object_name = 'da' # имя модели для html шаблона
+    # slug_field = "slug"
+    # Если не указать temlate_name django будет искать страницу
+    # houselokation_detail.html имя модели плюс суфикс(_detail)
+
+ dom/urls
+
+path('nedvijimost/<slug:slug>/', HouseLokationDetailView.as_view(), name='sluga' ),
+                  # path('spisok/', DomView.as_view(), name='spisok'),
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
+              + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+html
+ПО ПОЛЮ МОДЕЛИ
+<div class="alert alert-primary" role="alert">
+    <h4>{{ da.krai }}</h4>
+</div>
+
+                                    ПО ПОЛЮ MANYTOMANY
+<h5>Поле many to many</h5>
+{% for klient in da.kupec.all %}
+<p>{{ klient.name }}</p>
+<p>{{ klient.age }}</p>
+<img src="{{ klient.image.url }}" alt="" width='300'  height="400">
+<p>{{ klient.klient }}</p>
+<p>{{ klient.kontactnumber }}</p>
+<p>{{ klient.provider1 }}</p>
+<p>{{ klient.url }}</p>
+<p>{{ klient.description }}</p>
+{% endfor %}
+
+FORIGN KEY
+ <h1>Поле ForignKey</h1>
+    {% for foto in da.photohouse_set.all %}
+    {{ foto.zagolovok }}
+
+    <img src="{{ foto.photodom.url }}" alt="" width='300'  height="400">
+    <img src="{{ foto.photodvor.url }}" alt="" width='300'  height="400">
+    <img src="{{ foto.photoxozdvor.url }}" alt="" width='300'  height="400">
+    <img src="{{ foto.photokomnat.url }}" alt="" width='100'  height="400">
+     <img src="{{ foto.photosad.url }}" alt="" width='300'  height="400">
+    <img src="{{ foto.photoogorod.url }}" alt="" width='300'  height="400">
+    <img src="{{ foto.photokomnat.url }}" alt="" width='300'  height="400">
+    <p>{{ foto.descreption }}</p>
+
+    {% endfor %}
+--------------------------------------------------------------------------------
+
+class Company(models.Mode):
+    …
+    personal_number = models.CharField(max_length=11)
+
+
+class Vacancy(models.Model):
+    …
+    owner = models.ForeignKey(Company)
+    personal_number = models.PositiveIntegerField()
+
+    def get_personal_number(self):
+        return "{}-{}".format(self.owner.personal_number, self.personal_number)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.../site-packages/django/contrib/admin/templates/
+│
+├── admin/
+│   │
+│   ├── auth/
+│   │   └── user/
+│   │       ├── add_form.html
+│   │       └── change_password.html
+│   │
+│   ├── edit_inline/
+│   │   ├── stacked.html
+│   │   └── tabular.html
+│   │
+│   ├── includes/
+│   │   ├── fieldset.html
+│   │   └── object_delete_summary.html
+│   │
+│   ├── widgets/
+│   │   ├── clearable_file_input.html
+│   │   ├── foreign_key_raw_id.html
+│   │   ├── many_to_many_raw_id.html
+│   │   ├── radio.html
+│   │   ├── related_widget_wrapper.html
+│   │   ├── split_datetime.html
+│   │   └── url.html
+│   │
+│   ├── 404.html
+│   ├── 500.html
+│   ├── actions.html
+│   ├── app_index.html
+│   ├── base.html
+│   ├── base_site.html
+│   ├── change_form.html
+│   ├── change_form_object_tools.html
+│   ├── change_list.html
+│   ├── change_list_object_tools.html
+│   ├── change_list_results.html
+│   ├── date_hierarchy.html
+│   ├── delete_confirmation.html
+│   ├── delete_selected_confirmation.html
+│   ├── filter.html
+│   ├── index.html
+│   ├── invalid_setup.html
+│   ├── login.html
+│   ├── object_history.html
+│   ├── pagination.html
+│   ├── popup_response.html
+│   ├── prepopulated_fields_js.html
+│   ├── search_form.html
+│   └── submit_line.html
+│
+└── registration/
+    ├── logged_out.html
+    ├── password_change_done.html
+    ├── password_change_form.html
+    ├── password_reset_complete.html
+    ├── password_reset_confirm.html
+    ├── password_reset_done.html
+    ├── password_reset_email.html
+    └── password_reset_form.html
+
+
+
+                                                        IMAGES
+
+
+Реализация для Django (код из живого проекта), используем тот факт, что в качесте upload_to может выступ не только строка но и функция которая эту строку будет генерировать:
+
+def get_clinic_image_path(instance, filename):
+    hashname = sha1(filename).hexdigest() + '.jpg'
+    return os.path.join('clinic', hashname[:2], hashname[2:4],
+                        hashname)
+
+class Clinic(SeoMixin):
+    title = models.CharField(max_length=255, db_index=True)
+
+    teaser = models.TextField(blank=True)
+    description = RichTextField(blank=True)
+
+    # сохраняем картинку
+    image = models.ImageField(blank=True, upload_to=get_clinic_image_path)
+
+
+
+____________________________             HTML                 ______________________________________________
+
+                              КАРТИНКА КНОПКА
+
+  <p>Добавить документ --> <a href="{% url 'dokument' %}"><img src="{% static 'dom/images/pdf.png' %}" width="50"
+  height="50" alt="Добавить"></a></p>
+
+______________________           Доступ по полю BOOLEAN    ----------------------------------------------
+ {% for dom in doma %}
+{% if dom.activ == True  %}
+
+<p>{{ dom.activ }}</p>
+<p>{{ dom.name }}</p>
+<p>{{ dom.street }}</p>
+<hr>
+<p>{{ dom.avatar }}</p>
+<img src="{{ MEDIA_URL }}{{ dom.avatar.url }}" alt="" height="200" width="310">
+<hr>
+{% endif %}
+ {% endfor  %}
+
+
+
+
+
+ЗАПРОСЫ https://djbook.ru/rel1.8/ref/models/querysets.html#when-querysets-are-evaluated
+
+-----------------------------------------------------------------------------------------------
+
+MODEL  https://github.com/DJWOMS/django_movie/blob/0043c4dd9abb3c31e6bb9d93fe6db7759b2e5673/movies/models.py
+
+from django.db import models
+from datetime import date
+
+from django.urls import reverse
+
+
+class Category(models.Model):
+    """Категории"""
+    name = models.CharField("Категория", max_length=150)
+    description = models.TextField("Описание")
+    url = models.SlugField(max_length=160, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+
+
+class Actor(models.Model):
+    """Актеры и режиссеры"""
+    name = models.CharField("Имя", max_length=100)
+    age = models.PositiveSmallIntegerField("Возраст", default=0)
+    description = models.TextField("Описание")
+    image = models.ImageField("Изображение", upload_to="actors/")
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Актеры и режиссеры"
+        verbose_name_plural = "Актеры и режиссеры"
+
+
+class Genre(models.Model):
+    """Жанры"""
+    name = models.CharField("Имя", max_length=100)
+    description = models.TextField("Описание")
+    url = models.SlugField(max_length=160, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Жанр"
+        verbose_name_plural = "Жанры"
+
+
+class Movie(models.Model):
+    """Фильм"""
+    title = models.CharField("Название", max_length=100)
+    tagline = models.CharField("Слоган", max_length=100, default='')
+    description = models.TextField("Описание")
+    poster = models.ImageField("Постер", upload_to="movies/")
+    year = models.PositiveSmallIntegerField("Дата выхода", default=2019)
+    country = models.CharField("Страна", max_length=30)
+    directors = models.ManyToManyField(Actor, verbose_name="режиссер", related_name="film_director")
+    actors = models.ManyToManyField(Actor, verbose_name="актеры", related_name="film_actor")
+    genres = models.ManyToManyField(Genre, verbose_name="жанры")
+    world_premiere = models.DateField("Примьера в мире", default=date.today)
+    budget = models.PositiveIntegerField("Бюджет", default=0, help_text="указывать сумму в долларах")
+    fees_in_usa = models.PositiveIntegerField(
+        "Сборы в США", default=0, help_text="указывать сумму в долларах"
+    )
+    fess_in_world = models.PositiveIntegerField(
+        "Сборы в мире", default=0, help_text="указывать сумму в долларах"
+    )
+    category = models.ForeignKey(
+        Category, verbose_name="Категория", on_delete=models.SET_NULL, null=True
+    )
+    url = models.SlugField(max_length=130, unique=True)
+    draft = models.BooleanField("Черновик", default=False)
+
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse("movie_detail", kwargs={"slug": self.url})
+
+    class Meta:
+        verbose_name = "Фильм"
+        verbose_name_plural = "Фильмы"
+
+
+class MovieShots(models.Model):
+    """Кадры из фильма"""
+    title = models.CharField("Заголовок", max_length=100)
+    description = models.TextField("Описание")
+    image = models.ImageField("Изображение", upload_to="movie_shots/")
+    movie = models.ForeignKey(Movie, verbose_name="Фильм", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Кадр из фильма"
+        verbose_name_plural = "Кадры из фильма"
+
+
+class RatingStar(models.Model):
+    """Звезда рейтинга"""
+    value = models.SmallIntegerField("Значение", default=0)
+
+    def __str__(self):
+        return self.value
+
+    class Meta:
+        verbose_name = "Звезда рейтинга"
+        verbose_name_plural = "Звезды рейтинга"
+
+
+class Rating(models.Model):
+    """Рейтинг"""
+    ip = models.CharField("IP адрес", max_length=15)
+    star = models.ForeignKey(RatingStar, on_delete=models.CASCADE, verbose_name="звезда")
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE, verbose_name="фильм")
+
+    def __str__(self):
+        return f"{self.star} - {self.movie}"
+
+    class Meta:
+        verbose_name = "Рейтинг"
+        verbose_name_plural = "Рейтинги"
+
+
+class Reviews(models.Model):
+    """Отзывы"""
+    email = models.EmailField()
+    name = models.CharField("Имя", max_length=100)
+    text = models.TextField("Сообщение", max_length=5000)
+    parent = models.ForeignKey(
+        'self', verbose_name="Родитель", on_delete=models.SET_NULL, blank=True, null=True
+    )
+    movie = models.ForeignKey(Movie, verbose_name="фильм", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} - {self.movie}"
+
+    class Meta:
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                                    pre_save
+
+def pre_save_subcategory_slug(sender, instance, *args, **kwargs):
+  if not instance.subcat_slug:
+      subcat_slug = slugify(translit(str(instance.name), reversed=True))
+      instance.slug = subcat_slug
+
+pre_save.connect(pre_save_subcategory_slug, sender=SubCategory)
+
+Пишется после модели subcategory - имя модели в нижнем регистре.Необходимо заменить на название своей
+моделиюАвтоматическое сохранение слага
+from django.db.models.signals import pre_save # Импорт
+from django.utils.text import slugify #берет опред поле и переделывает его в поле с типом слаг
+
+-------------------------------------------------------------------------------------------------------
+
+                               ЗАПУСК ГУГЛА ИЗ ТЕРМИНАЛА
+$ which google-chrome
+/usr/bin/google-chrome
+$ google-chrome
+В текущем сеансе браузера создано новое окно
+
+---------------------------------------------------------------------------------
+/models.py
+
+from transliterate import slugify
+self.slug = slugify(self.name)  транслиретация на русский в модели
+ def save(self, *args, **kwargs):
+        self.slug = '%s_%s_%s_%s' % (self.name, self.street, self.housenumber, self.apartmentnumber)
+        self.slug = slugify(self.slug)
+        super(HouseLokation, self).save(*args, **kwargs)
+
+-----------------------------------------------------------------------------------
+
+                             REGISTRCIJA AUNTEFIKACION
+
+https://python-scripts.com/user-accounts-django
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                                      работа с группами
+https://qna.habr.com/q/567186
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+запуск сервера
+python3 -m http.server --cgi
+https://www.youtube.com/watch?v=_SOia1H_5Ic&list=PLxiU3nwEQ4PGUKTMTAOGeMMVif71I9jce&index=1
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+                                POSTGRESQL
+mysite/settings
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'django_db',
+        'USER' : 'user_name',
+        'PASSWORD' : 'password',
+        'HOST' : '127.0.0.1',
+        'PORT' : '5432',
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

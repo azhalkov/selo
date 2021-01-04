@@ -11,6 +11,12 @@ class AdresInline(admin.StackedInline):
     model = Adres
     extra = 1
 
+class CategoriInline(admin.StackedInline):
+    model = Categori
+    extra = 1
+
+
+
 @admin.register(Categori)
 class CategoriAdmin(admin.ModelAdmin):
     model = Categori
@@ -39,7 +45,7 @@ class ArticulAdmin(admin.ModelAdmin):
     model = Articul
     exclude = ['']
     list_display = ('art',)
-    inlines = [DomDokumentInline, AdresInline,]
+    inlines = [DomDokumentInline, AdresInline, ]
 
     # prepopulated_fields = {"slug": ("name_document",)}
 
@@ -50,6 +56,12 @@ class AdresAdmin(admin.ModelAdmin):
     model = Adres
     list_display = ('arti_dokument', 'name_krai', 'gorod', 'raion', 'street', 'n_doma','is_prodaju',
                     'is_prodano', 'is_activ', 'n_kvartiri', 'n_podezda',  'is_arenda', 'descreption')
+    # inlines = [CategoriInline,]
     # list_editable = ('is_activ', 'is_prodaju', 'is_prodano',)
 
 admin.site.register(Adres, AdresAdmin)
+
+class AdminSearchResultsView(admin.ModelAdmin):
+    model = Articul
+
+    fields = ['art', 'region', 'nomer']

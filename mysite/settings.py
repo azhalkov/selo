@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'dom',
     'todolist',
+
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
