@@ -1,21 +1,23 @@
+from itertools import chain
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models import QuerySet, Q
 from django.shortcuts import render
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.views import View
-from .models import Categori, DomDokument, Adres, Articul
-from .forms import CategoriForm, DomDokumentForm, AdresForm, ArtikulForm
+from .models import Categori, DomDokument, Adres, Articul, Person
+from .forms import CategoriForm, DomDokumentForm, AdresForm, ArtikulForm, PersonForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
-# Create your views here.
-""" Страница приложения дом"""
+
 def index(request):
+    """ Страница приложения дом"""
     return render(request, 'dom/index.html')
 
 
-"""Форма на сайт модели Articul"""
 class ArtikulView(View):
+    """Форма на сайт модели Articul"""
     template_name = 'dom/forms/articul_form.html'
     form_class = ArtikulForm
     model = Articul
@@ -32,11 +34,29 @@ class ArtikulView(View):
         return render(request, self.template_name, {'form': form})
 
 
-
 class CategoriView(View):
+    """Форма на сайт модели Categori"""
     template_name = 'dom/forms_html/categori_form.html'
     form_class = CategoriForm
     model = Categori
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+        return render(request, self.template_name, {'form': form})
+
+
+class PersonView(View):
+    """Форма на сайт модели Person"""
+    template_name = 'dom/forms_html/person_form.html'
+    form_class = PersonForm
+    model = Person
 
     def get(self, request):
         form = self.form_class()
@@ -119,7 +139,6 @@ class AdresListView(ListView):
 
 
 class AdresDetailView(DetailView):
-
     model = Adres
     context_object_name = 'adresa'
     template_name = 'dom/pokaz/adresa_detail.html'
@@ -146,3 +165,40 @@ class SearchResultsView(ListView):
         artikuli = Articul.objects.filter(region__istartswith=query)
         return artikuli
 
+
+
+""" Поиск по несольким моделям"""
+# class SearchResultsView(View):
+#     template_name = 'dom/search_list.html'
+#
+#     def get(self, request, *args, **kwargs):
+#         context = {}
+#
+#         q = request.GET.get('q')
+#         if q:
+#             query_sets = []  # Общий QuerySet
+#
+#             # Ищем по всем моделям
+#             query_sets.append(Adres.objects.search(query=q))
+#             query_sets.append(Articul.objects.search(query=q))
+#             query_sets.append(Categori.objects.search(query=q))
+#             query_sets.append(Person.objects.search(query=q))
+#             query_sets.append(DomDokument.objects.search(query=q))
+#
+#             # и объединяем выдачу
+#             final_set = list(chain(*query_sets))
+#             final_set.sort(key=lambda x: x.pub_date, reverse=True)  # Выполняем сортировку
+#
+#             context['last_question'] = '?q=%s' % q
+#
+#             current_page = Paginator(final_set, 10)
+#
+#             page = request.GET.get('page')
+#             try:
+#                 context['object_list'] = current_page.page(page)
+#             except PageNotAnInteger:
+#                 context['object_list'] = current_page.page(1)
+#             except EmptyPage:
+#                 context['object_list'] = current_page.page(current_page.num_pages)
+#
+#         return render(request=request, template_name=self.template_name, context=context)

@@ -28,6 +28,7 @@ class Articul(models.Model):
     nomer = models.CharField('Порядковый номер', max_length=6, blank=True, null=True,
                              help_text="Шестизначное число", default='000000')
     slug = models.SlugField('Уникальная ссылка', max_length=19, unique=True, blank=True, null=True)
+    objects = CategoriManager()
 
     class Meta:
         verbose_name = 'Артикул'
@@ -38,7 +39,7 @@ class Articul(models.Model):
         return self.art
 
     def save(self, *args, **kwargs):
-        self.slug = '%s_%s_%s_%s' % (self.region, self.mesto, self.kod_phone, self.nomer)
+        self.slug = '%s%s%s%s' % (self.region, self.mesto, self.kod_phone, self.nomer)
         self.art = self.slug.replace('_', '')
         #self.slug = slugify(self.slug)
         super(Articul, self).save(*args, **kwargs)
@@ -74,15 +75,16 @@ class Person(models.Model):
         ('Uri', 'Юрист'),
         ('Pom', 'Помошник'),
     )
-    famili = models.CharField('ФИО', max_length=500, blank=True, null=True)
-    phone = models.CharField('Телефон', max_length=500, blank=True, null=True)
-    birth_date = models.DateField('День рождения', null=True, blank=True)
-    status = models.CharField(max_length=300, choices = CHOICES, default='No')
-    zadachi = models.DateField('Дата задачи', null=True, blank=True)
-    descreption = models.TextField('Задача', max_length=500, blank=True, null=True)
-    ispolneno = models.BooleanField('Исполнено', default=False)
-    nado = models.BooleanField('В работе', default=False)
+    famili = models.CharField(u'ФИО', max_length=500, blank=True, null=True)
+    phone = models.CharField(u'Телефон', max_length=500, blank=True, null=True)
+    birth_date = models.DateField(u'День рождения', null=True, blank=True)
+    status = models.CharField(u'Статус', max_length=300, choices = CHOICES, default='No')
+    zadachi = models.DateField(u'Дата задачи', null=True, blank=True)
+    descreption = models.TextField(u'Задача', max_length=500, blank=True, null=True)
+    ispolneno = models.BooleanField(u'Исполнено', default=False)
+    nado = models.BooleanField(u'В работе', default=False)
     artikyl = models.ForeignKey(Articul, verbose_name='Участники', on_delete=models.SET_NULL, null=True)
+    objects = CategoriManager()# Установка менеджера для поиска в модель
 
 
     def __str__(self):
@@ -102,6 +104,7 @@ class DomDokument(models.Model):
     datepub = models.DateTimeField('Дата копии', auto_now_add=True, )
     slug = models.SlugField('Ссылка', max_length=160, unique=True)
     art_dokument = models.ForeignKey(Articul, verbose_name='artic', on_delete=models.SET_NULL, null=True)
+    objects = CategoriManager()# Установка менеджера для поиска в модель
 
     def __str__(self):
         return '%s ' % self.name_document
@@ -133,7 +136,7 @@ class Adres(models.Model):
     descreption = models.TextField('Объявление', max_length=5000, blank=True, null=True)
     arti_dokument = models.ForeignKey(Articul, verbose_name='Артикул', on_delete=models.SET_NULL, null=True)
     categorii = models.ForeignKey(Categori, verbose_name='Категория земель', on_delete=models.SET_NULL, null=True)
-
+    objects = CategoriManager()# Установка менеджера для поиска в модель
 
 
     def __str__(self):

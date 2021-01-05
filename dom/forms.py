@@ -14,6 +14,12 @@ class CategoriForm(forms.ModelForm):
         exclude = ['objects', 'slug']
 
 
+class PersonForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        exclude = ['objects', ]
+
+
 class DomDokumentForm(forms.ModelForm):
     class Meta:
         model = DomDokument
