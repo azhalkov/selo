@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Categori, DomDokument, Articul, Adres
+from .models import Categori, DomDokument, Articul, Adres, Person
 
 
 class DomDokumentInline(admin.StackedInline):
@@ -15,7 +15,9 @@ class CategoriInline(admin.StackedInline):
     model = Categori
     extra = 1
 
-
+class PersonInline(admin.StackedInline):
+    model = Person
+    extra = 1
 
 @admin.register(Categori)
 class CategoriAdmin(admin.ModelAdmin):
@@ -29,7 +31,12 @@ class CategoriAdmin(admin.ModelAdmin):
     # list_editable = ['slug',]
 
 
-# admin.site.register(Categori, CategoriAdmin)
+class PersonAdmin(admin.ModelAdmin):
+    model = Person
+    fields = ['famili', 'phone', 'birth_date', 'status', 'zadachi', 'descreption', 'ispolneno', 'nado' ]
+    list_display = ('famili', 'phone', 'status', 'zadachi' , 'ispolneno', 'nado')
+
+admin.site.register(Person, PersonAdmin)
 
 
 class DomDokumentAdmin(admin.ModelAdmin):
@@ -45,7 +52,7 @@ class ArticulAdmin(admin.ModelAdmin):
     model = Articul
     exclude = ['']
     list_display = ('art',)
-    inlines = [DomDokumentInline, AdresInline, ]
+    inlines = [DomDokumentInline, AdresInline, PersonInline]
 
     # prepopulated_fields = {"slug": ("name_document",)}
 
@@ -54,10 +61,11 @@ admin.site.register(Articul, ArticulAdmin)
 
 class AdresAdmin(admin.ModelAdmin):
     model = Adres
-    list_display = ('arti_dokument', 'name_krai', 'gorod', 'raion', 'street', 'n_doma','is_prodaju',
+    list_display = ('arti_dokument', 'categorii', 'name_krai', 'gorod', 'raion', 'street', 'n_doma','is_prodaju',
                     'is_prodano', 'is_activ', 'n_kvartiri', 'n_podezda',  'is_arenda', 'descreption')
-    # inlines = [CategoriInline,]
+    # inlines = [PersonInline,]
     # list_editable = ('is_activ', 'is_prodaju', 'is_prodano',)
+
 
 admin.site.register(Adres, AdresAdmin)
 

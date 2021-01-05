@@ -1,0 +1,6 @@
+
+
+https://webdevblog.ru/sovremennyj-sposob-sozdanie-polzovatelskoj-modeli-user-v-django/
+
+
+
