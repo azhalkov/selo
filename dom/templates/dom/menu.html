@@ -27,6 +27,7 @@
           Создать
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if user.is_authenticated %}
           <a href="{% url 'artikul' %}" class="dropdown-item">Новый артикул</a>
           <a href="{% url 'new_document' %}" class="dropdown-item">Добавить документ</a>
           <a href="{% url 'new_categori' %}" class="dropdown-item">Добавить категорию</a>
@@ -35,8 +36,10 @@
 
 
           <div class="dropdown-divider"></div>
+          {% else %}
           <a class="dropdown-item" href="{% url 'signup' %}"> Регистрация </a>
         </div>
+        {% endif %}
       </li>
       <li class="nav-item">
         <a class="" href="https://www.youtube.com/watch?v=n8If3gqWztM" tabindex="-1" aria-disabled="true">Размещение на хостинге</a>

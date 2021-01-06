@@ -2,19 +2,19 @@
 {% load static %}
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Блок мета для каждой страницы можно изменить мета -->
     {% block metaname %}
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static '/dom/my_dom.css' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type="text/css" href="{% static '/dom/dom.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     {% endblock metaname %}
-<!--     Блок заголовка страницы   -->
+
+    <!--     Блок заголовка страницы   -->
     <title>{% block title %}index{% endblock title %}</title>
+
 </head>
 <body>
 <!-- Блок для сообщений -->
@@ -22,7 +22,7 @@
 <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Внимание!</strong> Блок полезных сообщений.
-  </div>
+</div>
 {% endblock verx %}
 
 
@@ -36,7 +36,7 @@
         {% if user.is_authenticated %}
         <div class="col-sm-2">
             <p class="badge badge-success mt-3"> Благополучия {{ user.username }}!
-            <a href="{% url 'logout' %}" class="badge badge-light">Выход из учетной записи</a></p>
+                <a href="{% url 'logout' %}" class="badge badge-light">Выход из учетной записи</a></p>
 
         </div>
         {% else %}
@@ -56,13 +56,25 @@
     {% endblock %}
 </div>
 
+
 <!-- Панель меню -->
 {% block menu %}
 {% include "dom/menu.html" %}
 {% endblock menu %}
 
 
-<p>абзац</p>
-<h1> заголовок</h1>
+{% block content_center %}
+{% include "dom/content_center/zagolovok.html" %}
+{% endblock content_center %}
+
+
+<!--Блок для размещения скриптов-->
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock script%}
+
+
 </body>
 </html>

@@ -1,0 +1,30 @@
+{% extends 'dom/index.html' %}
+
+
+{% block title %}
+Шаблон
+{% endblock title %}
+
+
+{% block verx %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Внимание!</strong> Блок полезных сообщений.
+</div>
+{% endblock verx %}
+
+{% block auntifikate %}
+{% endblock %}
+
+<!-- Блок меню можно создать свой -->
+{% block menu %}
+{% include "dom/menu.html" %}
+{% endblock menu %}
+
+
+<!-- Блок контента в центре-->
+{% block content_center %}
+{% include "dom/content_center/zagolovok.html" %}
+{% endblock content_center %}
+
+

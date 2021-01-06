@@ -1,0 +1,110 @@
+{% extends 'dom/index.html' %}
+
+{% block title %}
+Продавцу
+{% endblock title %}
+<h1>Полезная информация</h1>
+
+
+{% block verx %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Полезно!</strong> Продавцу недвижимости
+</div>
+{% endblock verx %}
+
+{% block auntifikate %}
+{% endblock %}
+
+<!-- Блок меню можно создать свой -->
+{% block menu %}
+<a href="{% url 'index' %}">
+<span class="badge badge-pill badge-success ml-3">На главную</span>
+</a>
+{% endblock menu %}
+
+
+
+<!-- Блок контента в центре-->
+{% block content_center %}
+<hr color="green" width="400" >
+<hr color="green" width="300" >
+<div class="container">
+  <div class="jumbotron mt-3">
+    <h5 class="text-left font-italic">"Купить и дитя сможет. Продать -, и дед намается."</h5>
+     <h6 class="text-center font-weight-normal">Народная мудрость.</h6>
+      <ul>
+    <li>Как продать недвижимость по максимально высокой рыночной цене?</li>
+    <li>Хочу продать самостоятельно без посредников. С чего начинать?</li>
+    <li>Нет времени заниматься продажей. Кто поможет продать подороже? </li>
+      </ul>
+  </div>
+</div>
+
+<hr color="green" width="300" >
+<hr color="green" width="400" >
+
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>О сайте -</strong> Для удобного чтения сайт выполнен с минимальным дизайном в черно-белых тонах.
+</div>
+
+<p class="text-left ml-3"> Шаг за шагом. На странице руководство по продаже недвижимости.</p>
+<p class="text-left ml-3"> Полное понимание что делать и ссылки на полезные статьи - как делать.</p>
+<p class="text-left ml-3"> Номера телефонов юристов и мастеров вашего населенного пункта на кубани...</p>
+
+
+<!-- Блок трех колонок -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Шаг 2</h3>
+                    <p  class="card-text">
+                    <p  class="card-text">Как покупатель узнает о том что Вы продаете ?</p>
+                    <p>Необходимо размещение информации о продаваемом объекте</p>
+                    <p>Фото, видео, текст, цена.</p>
+                    <p><a href="http://www.prodaznik.ru/article/100-reklamy-svoego-biznesa-kak-iskat-klientov" target="_blank">
+                        100+</a> способов рекламы вашего объекта. </p>
+                    
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Шаг 1</h3>
+                    <p  class="card-text">Что продаете ?</p>
+                    <p  class="card-text">Представьте что Вы покупатель недвижимости.</p>
+                    <p  class="card-text">Нужно больше информации о продаваемом объекте</p>
+                    <p  class="card-text">Важно все, правильно сфотографировать</p>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-sm-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h3 class="card-title">Как</h3>
+                    <p  class="card-text">Анонимно без регистрации.</p>
+                    <p  class="card-text">Использовать личный кабинет.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+{% endblock content_center %}
+

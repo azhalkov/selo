@@ -1,0 +1,15 @@
+H1 {
+  color: red;
+  font-size: 200%;
+  font-family: Arial, Verdana, sans-serif;
+  text-align: center;
+}
+p {
+  color: red;
+  padding-left: 20px;
+}
+body {
+  background-image: url({% static "dom/images/selo.jpeg" %}) no-repeat;
+  background-size: 100hv;
+  background-attachment: fixed;
+}
