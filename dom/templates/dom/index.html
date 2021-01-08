@@ -22,12 +22,15 @@
 <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Внимание!</strong> Блок полезных сообщений.
+    <div class="container">
+        <h3>Первый деловой - НЕДВИЖИМОСТЬ .</h3>
+        <a href="#" data-toggle="popover" title="Назначение сайта" data-content="Бесплатная площадка для
+  размещения объектов недвижимости. Публикуйте, ищите, нанимайте. Общение без посредников. Личный
+рабочий кабинет. Поиск и размещение сельской недвижимости.">ИНФО</a>
+    </div>
 </div>
+
 {% endblock verx %}
-
-
-
-
 
 <!-- блок авторизации пользователя-->
 {% block auntifikate %}
@@ -56,7 +59,6 @@
     {% endblock %}
 </div>
 
-
 <!-- Панель меню -->
 {% block menu %}
 {% include "dom/menu.html" %}
@@ -64,6 +66,10 @@
 
 
 {% block content_center %}
+<div class="container">
+        <a href="#" data-toggle="popover" title="Информация" data-content="Подсказки.Скрипт">♥</a>
+    </div>
+
 {% include "dom/content_center/zagolovok.html" %}
 {% endblock content_center %}
 
@@ -73,6 +79,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
+</script>
 {% endblock script%}
 
 

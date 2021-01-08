@@ -24,6 +24,7 @@ urlpatterns = [
     # path('poisk/', PoiskArtikula.as_view(), name='poisk'),
     path('search/', SearchResultsView.as_view(), name='search'),
     path('prodavcu/', TemplateView.as_view(template_name='dom/info/prodavcu.html'), name='prodavcu'),
+    path('partner/', TemplateView.as_view(template_name='dom/info/partner.html'), name='partner'),
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

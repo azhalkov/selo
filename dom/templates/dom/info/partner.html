@@ -1,0 +1,97 @@
+{% extends 'dom/index.html' %}
+
+
+{% block title %}
+Партнерам
+{% endblock title %}
+
+
+{% block verx %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Внимание!</strong> Страница для партнеров. Прайс.
+</div>
+{% endblock verx %}
+
+{% block auntifikate %}
+{% endblock %}
+
+<!-- Блок меню можно создать свой -->
+{% block menu %}
+<a href="{% url 'index' %}">
+    <span class="badge badge-pill badge-success ml-3">На главную</span>
+</a>
+{% endblock menu %}
+
+
+<!-- Блок контента в центре-->
+{% block content_center %}
+<hr color="green" width="400" >
+<hr color="green" width="300" >
+<div class="container">
+    <div class="jumbotron mt-3">
+        <h5 class="text-left font-italic"> " Тот ничего не боится, кто честно трудится. "</h5>
+        <h6 class="text-center font-weight-normal">Народная мудрость.</h6>
+        <h5>Основа партнерства с сайтом</h5>
+        <ul>
+            <li>Цену выполнения работ клиент обязан знать до начала исполнения</li>
+            <li>Полная открытость. Стоимость выполнения работ не выше представленного ниже прайса</li>
+            <li>Разрешение на размещение отзывов от клиентов о выполненной работе</li>
+            <li>Договор с сайтом.</li>
+        </ul>
+    </div>
+</div>
+
+<hr color="green" width="300" >
+<hr color="green" width="400" >
+
+
+<div class="conteiner">
+    <div class="row">
+
+        <div class="col-sm-2">
+        </div>
+
+        <div class="col-sm-7">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Вид</th>
+                    <th scope="col">Клиент</th>
+                    <th scope="col">Агент</th>
+                    <th scope="col">Партнер</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Шаблонное объявление</th>
+                    <td>00</td>
+                    <td>1000</td>
+                    <td>2000</td>
+                </tr>
+                <tr>
+                    <th scope="row">Фото объекта</th>
+                    <td>00</td>
+                    <td>500 + т.р.</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="col-sm-2">
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content_center %}
+
