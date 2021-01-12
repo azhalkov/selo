@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Детали поиска</title>
+</head>
+<body>
+<h3>Детали</h3>
+
+{% for dok in da.adres_set.all %}
+    <h4>Имя : {{ dok.gorod }}</h4>
+
+    <p>Регион: {{ dok.region }}</p>
+<p>Слаг: {{ dok.slug }}</p>
+
+<p>{{ dok.name_krai }}</p>
+<p>{{ dok.gorod }}</p>
+<p>{{ dok.street }}</p>
+<p>{{ dok.raion }}</p>
+<p>{{ dok.n_doma }}</p>
+<p>{{ dok.n_kvartiri }}</p>
+<p>{{ dok.n_podezda }}</p>
+<p>{{ dok.descreption }}</p>
+<p>{{ dok.is_activ }}</p>
+<p>{{ dok.slug }}</p>
+    {% endfor %}
+
+
+{% for dok in da.person_set.all %}
+<h4>Имя : {{ dok.famili }}</h4>
+
+
+<p>Статус: {{ dok.status }}</p>
+
+{% endfor %}
+
+
+
+</body>
+</html>

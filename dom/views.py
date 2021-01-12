@@ -162,13 +162,39 @@ class SearchResultsView(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
+        if query == None:
+            query = '123'
         artikuli = Articul.objects.filter(region__istartswith=query)
         return artikuli
 
 
 
 """ Поиск по несольким моделям"""
+
+def dom_poisk(request, ):
+    query = request.GET.get('q')
+    if query == None:
+        query = 'Поиск'
+    articuli = Articul.objects.filter(region__istartswith=query)
+    # articuli = Articul.objects.all()
+    adres = Adres.objects.filter(gorod__istartswith=query)
+    context = {'articuli': articuli, 'adres': adres, }
+    return render(request, 'dom/poisk/dom_poisk_list.html', context)
+
+
+
+class ArticulDetailView(DetailView):
+    model = Articul
+    template_name = 'dom/poisk/dom_poisk_detail.html'
+    queryset = Articul.objects.all()
+    # slug_field = 'url'
+    context_object_name = 'da' # имя модели для html шаблона
+
+
+
+
 # class SearchResultsView(View):
+    """ Поиск по несольким моделям"""
 #     template_name = 'dom/search_list.html'
 #
 #     def get(self, request, *args, **kwargs):

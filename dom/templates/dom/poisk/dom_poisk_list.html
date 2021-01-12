@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Поиск</title>
+</head>
+<body>
+
+<h1>Поиск домов функция</h1>
+    <form class="form-inline my-2 my-lg-0" action="{% url 'poisk' %}" method="get" >
+        <input class="form-control mr-sm-2" type="search" placeholder="поиск" aria-label="Search" name="q">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+    </form>
+
+{% for artikul in articuli %}
+<p class="text-secondary"> Артикул - {{ artikul.art }}</p>
+<p class="text-secondary">Регион - {{ artikul.region }}</p>
+<p class="text-secondary">Ссылка - {{ artikul.slug }}</p>
+<a href="{{ artikul.slug }}">Детали</a>
+{% endfor  %}
+
+
+<h3> Поиск в адресах </h3>
+{% for artikul in articuli.adres_set.all %}
+<p class="text-secondary"> Город - {{ artikul.gorod }}</p>
+{% endfor  %}
+
+
+
+<h5>Города</h5>
+{% for name in adres %}
+<p class="text-secondary"> Пункт - {{ name.gorod }}</p>
+<p class="text-secondary">Ссылка - {{ name.arti_dokument }}</p>
+<a href="{{ name.arti_dokument }}">Просмотр</a>
+
+{% endfor  %}
+
+<p> Подробности</p>
+{% for artikul in articuli.adres_set.all %}
+<p> {{ artikul.street }}</p>
+
+{% endfor  %}
+
+</body>
+</html>

@@ -51,6 +51,7 @@ class Categori(models.Model):
     name = models.CharField("Категория", max_length=150)
     description = models.TextField("Описание", max_length=1024, blank=True, null=True)
     slug = models.SlugField('Ссылка', max_length=160, unique=True)
+    art_categori = models.ForeignKey(Articul, verbose_name='Арт_категории', on_delete=models.SET_NULL, null=True)
     objects = CategoriManager()  # Установка менеджера для поиска в модель
 
     def __str__(self):
@@ -102,12 +103,12 @@ class DomDokument(models.Model):
     name_document = models.CharField('Название документа', max_length=128, blank=True, null=True)
     filedom = models.FileField('Загрузить', upload_to='dom/dokument')
     datepub = models.DateTimeField('Дата копии', auto_now_add=True, )
-    slug = models.SlugField('Ссылка', max_length=160, unique=True)
+    slug = models.SlugField('Ссылка', max_length=160, unique=True, blank=True, null=True)
     art_dokument = models.ForeignKey(Articul, verbose_name='artic', on_delete=models.SET_NULL, null=True)
     objects = CategoriManager()# Установка менеджера для поиска в модель
 
     def __str__(self):
-        return '%s ' % self.name_document
+        return '%s_%s ' % (self.name_document, self.art_dokument)
 
     def save(self, *args, **kwargs):
         # self.slug = '%s_%s_%s_%s' % (self.name, self.street, self.housenumber, self.apartmentnumber)

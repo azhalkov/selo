@@ -6,7 +6,8 @@ from django.urls import path
 from django.views.generic import TemplateView
 
 from . import views
-from .views import CategoriView, DomDokumentView, AdresView, ArtikulView, AdresDetailView, SearchResultsView, PersonView
+from .views import CategoriView, DomDokumentView, AdresView, ArtikulView, AdresDetailView, SearchResultsView,\
+    PersonView, ArticulDetailView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -23,6 +24,12 @@ urlpatterns = [
     path('adresa/<slug:slug>/', AdresDetailView.as_view(), name='adresa_detail'),
     # path('poisk/', PoiskArtikula.as_view(), name='poisk'),
     path('search/', SearchResultsView.as_view(), name='search'),
+
+
+    path('poisk/', views.dom_poisk, name="poisk"),
+    path('poisk/<slug:slug>/', ArticulDetailView.as_view(), name='dom_detail'),
+
+
     path('prodavcu/', TemplateView.as_view(template_name='dom/info/prodavcu.html'), name='prodavcu'),
     path('partner/', TemplateView.as_view(template_name='dom/info/partner.html'), name='partner'),
 
