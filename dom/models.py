@@ -1,3 +1,4 @@
+# dom/models
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -157,6 +158,19 @@ class Adres(models.Model):
         verbose_name_plural = 'Адреса'
 
 
+class FotoDom(models.Model):
+    """Фото дома"""
+    title = models.CharField("Заголовок", max_length=100)
+    description = models.TextField("Описание", blank=True, null=True )
+    image = models.ImageField("Изображение", upload_to="dom/images/%Y/%m/%d/", blank=True)
+    movie = models.ForeignKey(Articul, verbose_name="Артикул", on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Фото дома"
+        verbose_name_plural = "Фото домов"
 
 
 

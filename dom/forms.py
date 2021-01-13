@@ -41,4 +41,7 @@ class AdresForm(forms.ModelForm):
         exclude = ['is_prodaju', 'is_activ', 'is_prodano', 'is_arenda', 'slug' ]
         ordering = "-arti_dokument"
 
-
+class FotoDomForm(forms.ModelForm):
+    class Meta:
+        model = FotoDom
+        exclude = ['', ]

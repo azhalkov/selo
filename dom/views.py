@@ -5,8 +5,8 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.views import View
-from .models import Categori, DomDokument, Adres, Articul, Person
-from .forms import CategoriForm, DomDokumentForm, AdresForm, ArtikulForm, PersonForm
+from .models import Categori, DomDokument, Adres, Articul, Person, FotoDom
+from .forms import CategoriForm, DomDokumentForm, AdresForm, ArtikulForm, PersonForm, FotoDomForm
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
@@ -68,6 +68,25 @@ class PersonView(View):
             form.save()
             return HttpResponseRedirect('/')
         return render(request, self.template_name, {'form': form})
+
+
+class FotoDomView(View):
+    """Форма на сайт модели FotoDom"""
+    template_name = 'dom/forms/foto_dom_form.html'
+    form_class = FotoDomForm
+    model = FotoDom
+
+    def get(self, request):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+        return render(request, self.template_name, {'form': form})
+
 
 
 class DomDokumentView(View):
@@ -157,7 +176,7 @@ class PoiskAdres(ListView):
 class SearchResultsView(ListView):
     model = Articul
     template_name = 'dom/search_list.html'
-    context_object_name = 'artikuli'
+    context_object_name = 'da'
 
 
     def get_queryset(self):
@@ -190,6 +209,13 @@ class ArticulDetailView(DetailView):
     # slug_field = 'url'
     context_object_name = 'da' # имя модели для html шаблона
 
+
+class SearchDetailView(DetailView):
+    model = Articul
+    template_name = 'dom/dom_search_detail.html'
+    queryset = Articul.objects.all()
+    # slug_field = 'url'
+    context_object_name = 'da'  # имя модели для html шаблона
 
 
 

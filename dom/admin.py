@@ -1,6 +1,11 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Categori, DomDokument, Articul, Adres, Person
+from .models import Categori, DomDokument, Articul, Adres, Person, FotoDom
+
+
+class FotoDomInline(admin.StackedInline):
+    model = FotoDom
+    extra = 1
 
 
 class DomDokumentInline(admin.StackedInline):
@@ -52,7 +57,7 @@ class ArticulAdmin(admin.ModelAdmin):
     model = Articul
     exclude = ['']
     list_display = ('art',)
-    inlines = [DomDokumentInline, AdresInline, PersonInline]
+    inlines = [DomDokumentInline, AdresInline, PersonInline, FotoDomInline]
 
     # prepopulated_fields = {"slug": ("name_document",)}
 
@@ -73,3 +78,14 @@ class AdminSearchResultsView(admin.ModelAdmin):
     model = Articul
 
     fields = ['art', 'region', 'nomer']
+
+
+# admin.site.register(Articul, AdminSearchResultsView)
+
+
+class FotoDomAdmin(admin.ModelAdmin):
+    model = FotoDom
+    fields = [ 'title', 'description', 'image', 'movie']
+
+admin.site.register(FotoDom, FotoDomAdmin)
+
