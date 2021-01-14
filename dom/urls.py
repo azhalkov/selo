@@ -33,6 +33,7 @@ urlpatterns = [
 
     path('prodavcu/', TemplateView.as_view(template_name='dom/info/prodavcu.html'), name='prodavcu'),
     path('partner/', TemplateView.as_view(template_name='dom/info/partner.html'), name='partner'),
+    path('ceni/', TemplateView.as_view(template_name='dom/info/ponjatnie_ceni.html'), name='ceni'),
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
               + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
