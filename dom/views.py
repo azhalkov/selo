@@ -10,6 +10,7 @@ from .forms import CategoriForm, DomDokumentForm, AdresForm, ArtikulForm, Person
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
+'''https://www.youtube.com/watch?v=v2L3oyO8SX8  '''
 
 def index(request):
     """ Страница приложения дом"""
