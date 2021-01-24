@@ -198,7 +198,8 @@ def dom_poisk(request, ):
     articuli = Articul.objects.filter(region__istartswith=query)
     # articuli = Articul.objects.all()
     adres = Adres.objects.filter(gorod__istartswith=query)
-    context = {'articuli': articuli, 'adres': adres, }
+    foto = FotoDom.objects.all()
+    context = {'articuli': articuli, 'adres': adres, 'foto': foto}
     return render(request, 'dom/poisk/dom_poisk_list.html', context)
 
 

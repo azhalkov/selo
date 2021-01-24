@@ -34,6 +34,12 @@
 
 {% endfor %}
 
+{% for foto in da.fotodom_set.all %}
+<h4>Заголовок : {{ foto.title }}</h4>
+<img src="{{ foto.image.url }}" alt="{{ foto.title }}" width="300" height="300">
+<p>Статус: {{ dok.status }}</p>
+{% endfor %}
+
 
 
 </body>

@@ -19,11 +19,11 @@ urlpatterns = [
     path('adres/', AdresView.as_view(template_name='dom/forms/adres_form.html'), name='adres'),
     path('artikul/', ArtikulView.as_view(template_name='dom/forms/articul_form.html'), name='artikul'),
     path('person/', PersonView.as_view(template_name='dom/forms/person_form.html'), name='new_person'),
+
     path('adresa/', views.AdresListView.as_view(), name='adresa'),
-    # path('nedvijimost/<int:pk>/', HouseLokationDetailView.as_view(), name='detail'),
-    # # path('nedvijimost/<int:pk>/', FotoDomDetailView.as_view(), name='foto' ),
     path('adresa/<slug:slug>/', AdresDetailView.as_view(), name='adresa_detail'),
-    # path('poisk/', PoiskArtikula.as_view(), name='poisk'),
+
+
     path('search/', SearchResultsView.as_view(), name='search'),
     path('search/<slug:slug>/', SearchDetailView.as_view(), name='search_detail'),
 

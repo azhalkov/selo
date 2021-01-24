@@ -16,6 +16,7 @@
 <p class="text-secondary"> Артикул - {{ artikul.art }}</p>
 <p class="text-secondary">Регион - {{ artikul.region }}</p>
 <p class="text-secondary">Ссылка - {{ artikul.slug }}</p>
+<!--<p class="text-secondary">Фото - {{ artikul.fotodom_set.all}}</p>-->
 <a href="{{ artikul.slug }}">Детали</a>
 {% endfor  %}
 
@@ -25,6 +26,12 @@
 <p class="text-secondary"> Город - {{ artikul.gorod }}</p>
 {% endfor  %}
 
+{% for img in foto %}
+<h4>Заголовок : {{ img.title }}</h4>
+<h4>AAAAA : {{ img.movie }}</h4>
+<img src="{{ img.image.url }}" alt="{{ foto.title }}" width="300" height="300">
+<hr>
+{% endfor %}
 
 
 <h5>Города</h5>
@@ -32,14 +39,14 @@
 <p class="text-secondary"> Пункт - {{ name.gorod }}</p>
 <p class="text-secondary">Ссылка - {{ name.arti_dokument }}</p>
 <a href="{{ name.arti_dokument }}">Просмотр</a>
-
 {% endfor  %}
 
 <p> Подробности</p>
 {% for artikul in articuli.adres_set.all %}
 <p> {{ artikul.street }}</p>
-
 {% endfor  %}
+
+
 
 </body>
 </html>

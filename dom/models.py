@@ -147,15 +147,19 @@ class Adres(models.Model):
     def get_absolute_url(self):
         return reverse('adresa_detail', args=(self.slug,))
 
+    class Meta:
+        default_related_name = 'ad_res'
+        verbose_name = 'Адрес'
+        verbose_name_plural = 'Адреса'
+
+
     def save(self, *args, **kwargs):
         self.slug = '%s_%s' % (self.gorod, self.arti_dokument)
         self.slug = slugify(self.slug)
 
         super(Adres, self).save(*args, **kwargs)
 
-    class Meta:
-        verbose_name = 'Адрес'
-        verbose_name_plural = 'Адреса'
+
 
 
 class FotoDom(models.Model):
