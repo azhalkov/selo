@@ -204,12 +204,35 @@ def dom_poisk(request, ):
 
 
 
+class PoiskDomView(ListView):
+    model = Articul
+    template_name = 'dom/poisk/dom_poisk_list.html'
+    context_object_name = 'ok'
+
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        if query == None:
+            query=''
+
+        object_list = Articul.objects.filter(Q(art__icontains=query) | Q(kod_phone__icontains=query) )
+        # object_list = object_list.filter(is_activ=True) # Фильтр по полю is_activ
+        return object_list
+
+
+
+
+
 class ArticulDetailView(DetailView):
     model = Articul
     template_name = 'dom/poisk/dom_poisk_detail.html'
     queryset = Articul.objects.all()
-    # slug_field = 'url'
-    context_object_name = 'da' # имя модели для html шаблона
+    context_object_name = 'ok' # имя модели для html шаблона
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['now'] = timezone.now()
+        return context
 
 
 class SearchDetailView(DetailView):
@@ -221,38 +244,3 @@ class SearchDetailView(DetailView):
 
 
 
-# class SearchResultsView(View):
-    """ Поиск по несольким моделям"""
-#     template_name = 'dom/search_list.html'
-#
-#     def get(self, request, *args, **kwargs):
-#         context = {}
-#
-#         q = request.GET.get('q')
-#         if q:
-#             query_sets = []  # Общий QuerySet
-#
-#             # Ищем по всем моделям
-#             query_sets.append(Adres.objects.search(query=q))
-#             query_sets.append(Articul.objects.search(query=q))
-#             query_sets.append(Categori.objects.search(query=q))
-#             query_sets.append(Person.objects.search(query=q))
-#             query_sets.append(DomDokument.objects.search(query=q))
-#
-#             # и объединяем выдачу
-#             final_set = list(chain(*query_sets))
-#             final_set.sort(key=lambda x: x.pub_date, reverse=True)  # Выполняем сортировку
-#
-#             context['last_question'] = '?q=%s' % q
-#
-#             current_page = Paginator(final_set, 10)
-#
-#             page = request.GET.get('page')
-#             try:
-#                 context['object_list'] = current_page.page(page)
-#             except PageNotAnInteger:
-#                 context['object_list'] = current_page.page(1)
-#             except EmptyPage:
-#                 context['object_list'] = current_page.page(current_page.num_pages)
-#
-#         return render(request=request, template_name=self.template_name, context=context)

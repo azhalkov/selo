@@ -12,17 +12,17 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
     </form>
 
-{% for artikul in articuli %}
-<p class="text-secondary"> Артикул - {{ artikul.art }}</p>
-<p class="text-secondary">Регион - {{ artikul.region }}</p>
-<p class="text-secondary">Ссылка - {{ artikul.slug }}</p>
+
+<p class="text-secondary"> Артикул - {{ ok.art }}</p>
+<p class="text-secondary">Регион - {{ ok.region }}</p>
+<p class="text-secondary">Ссылка - {{ ok.slug }}</p>
 <!--<p class="text-secondary">Фото - {{ artikul.fotodom_set.all}}</p>-->
-<a href="{{ artikul.slug }}">Детали</a>
-{% endfor  %}
+<a href="{{ ok.slug }}">Детали ссылка</a>
+
 
 
 <h3> Поиск в адресах </h3>
-{% for artikul in articuli.adres_set.all %}
+{% for artikul in ok.adres_set.all %}
 <p class="text-secondary"> Город - {{ artikul.gorod }}</p>
 {% endfor  %}
 

@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 
 from . import views
 from .views import CategoriView, DomDokumentView, AdresView, ArtikulView, AdresDetailView, SearchResultsView, \
-    PersonView, ArticulDetailView, FotoDomView, SearchDetailView
+    PersonView, ArticulDetailView, FotoDomView, SearchDetailView, PoiskDomView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -26,8 +26,10 @@ urlpatterns = [
 
     path('search/', SearchResultsView.as_view(), name='search'),
     path('search/<slug:slug>/', SearchDetailView.as_view(), name='search_detail'),
+    path('nedvijimost/<int:pk>/', SearchDetailView.as_view(), name='nedvi_detail'),
 
-    path('poisk/', views.dom_poisk, name="poisk"),
+    # path('poisk/', views.dom_poisk, name="poisk"),
+    path('poisk/', PoiskDomView.as_view(), name='poisk'),
     path('poisk/<slug:slug>/', ArticulDetailView.as_view(), name='dom_detail'),
 
 

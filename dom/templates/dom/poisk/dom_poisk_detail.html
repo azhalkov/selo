@@ -8,14 +8,14 @@
 <h3>Детали</h3>
 
 {% for dok in da.adres_set.all %}
-    <h4>Имя : {{ dok.gorod }}</h4>
+<h4>Имя : {{ dok.name_krai }}</h4>
 
-    <p>Регион: {{ dok.region }}</p>
+<p>Регион: {{ dok.region }}</p>
 <p>Слаг: {{ dok.slug }}</p>
 
-<p>{{ dok.name_krai }}</p>
-<p>{{ dok.gorod }}</p>
-<p>{{ dok.street }}</p>
+<p>Имя края:{{ dok.name_krai }}</p>
+<p>Город: {{ dok.gorod }}</p>
+<p>Улица: {{ dok.street }}</p>
 <p>{{ dok.raion }}</p>
 <p>{{ dok.n_doma }}</p>
 <p>{{ dok.n_kvartiri }}</p>
@@ -23,15 +23,12 @@
 <p>{{ dok.descreption }}</p>
 <p>{{ dok.is_activ }}</p>
 <p>{{ dok.slug }}</p>
-    {% endfor %}
+{% endfor %}
 
 
 {% for dok in da.person_set.all %}
 <h4>Имя : {{ dok.famili }}</h4>
-
-
 <p>Статус: {{ dok.status }}</p>
-
 {% endfor %}
 
 {% for foto in da.fotodom_set.all %}
