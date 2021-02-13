@@ -1,0 +1,13 @@
+<nav>
+    <div class="nav-wrapper">
+      <a href="#!" class="brand-logo">Опросы</a>
+      <ul class="right hide-on-med-and-down">
+
+          {% for question in latest_question_list %}
+        <li><a href="{% url 'polls:detail' question.id %}" ><i class="material-icons left">view_module</i>{{ question.question_text }}</a></li>
+    {% endfor %}
+
+
+      </ul>
+    </div>
+  </nav>
