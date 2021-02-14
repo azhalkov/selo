@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'dom',
     'todolist',
     'polls',
+    'urokipy',
 
 ]
 
