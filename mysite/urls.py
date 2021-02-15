@@ -18,7 +18,7 @@ urlpatterns = [
     path('todo/', include('todolist.urls')),
     path('polls/', include('polls.urls')),
     path('uroki/', include('urokipy.urls')),
-    path('partner/', include('partner.urls')),
+    path('partneri/', include('partner.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
