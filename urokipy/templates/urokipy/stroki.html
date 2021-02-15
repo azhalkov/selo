@@ -31,9 +31,11 @@
                         <div class="card-image">
                             {% if karta.image %}
                             <img src="{{ karta.image.url }}" alt="{{ karta.alt}}" width="189" height="255">
+
                             {% else %}
                             <img src="#" alt="">
                              {% endif %}
+                            <p class="tags">Теги: {{ karta.tags.all|join:", " }}</p>
                         </div>
                         <div class="card-content white-text">
                             <span class="card-title">{{ karta.title}}</span>

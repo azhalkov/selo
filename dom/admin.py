@@ -55,7 +55,10 @@ admin.site.register(DomDokument, DomDokumentAdmin)
 
 class ArticulAdmin(admin.ModelAdmin):
     model = Articul
-    exclude = ['']
+    fieldsets = (
+        (None, {'fields': ('tags',)}),
+    )
+    exclude = ['',]
     list_display = ('art',)
     inlines = [DomDokumentInline, AdresInline, PersonInline, FotoDomInline]
 

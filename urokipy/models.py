@@ -1,5 +1,5 @@
 from django.db import models
-
+from taggit.managers import TaggableManager
 # Create your models here.
 
 class Karta(models.Model):
@@ -10,6 +10,7 @@ class Karta(models.Model):
     text = models.TextField('Текст', max_length=200)
     links = models.URLField('Ссылка', default='#')
     button_text = models.CharField('Текст кнопки', max_length=28)
+    tags = TaggableManager()
 
     def __str__(self):
         return self.title

@@ -2,8 +2,7 @@
 from django.db import models
 from django.db.models import Q
 from django.contrib.auth.models import User
-#  from django.db.models.signals import post_save
-#  from datetime import datetime
+from taggit.managers import TaggableManager
 from django.urls import reverse
 from transliterate import slugify
 
@@ -30,6 +29,9 @@ class Articul(models.Model):
                              help_text="Шестизначное число", default='000000')
     slug = models.SlugField('Уникальная ссылка', max_length=19, unique=True, blank=True, null=True)
     objects = CategoriManager()
+    tags = TaggableManager(verbose_name="Тэги")
+
+
 
     class Meta:
         verbose_name = 'Артикул'
@@ -42,6 +44,7 @@ class Articul(models.Model):
     def save(self, *args, **kwargs):
         self.slug = '%s%s%s%s' % (self.region, self.mesto, self.kod_phone, self.nomer)
         self.art = self.slug.replace('_', '')
+
         #self.slug = slugify(self.slug)
         super(Articul, self).save(*args, **kwargs)
 
