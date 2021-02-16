@@ -7,12 +7,23 @@
 </head>
 <body>
 
-<form class="form-inline my-2 my-lg-0" action="{% url 'poisk' %}" method="get">
+<form class="form-inline my-2 my-lg-0" action="{% url 'search' %}" method="get">
       <input class="form-control mr-sm-2" type="search" name="q" placeholder="Ищу" aria-label="Поиск">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
     </form>
 
+<h1>Поиск</h1>
+<h1>Search Results</h1>
 
+<ul>
+  {% for city in object_list %}
+    <li>
+      {{ city.arti_dokument }}, {{ city.gorod }}
+        <a href="{% url 'search' %}"></a>
+
+    </li>
+  {% endfor %}
+</ul>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

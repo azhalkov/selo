@@ -38,8 +38,8 @@ class CategoriAdmin(admin.ModelAdmin):
 
 class PersonAdmin(admin.ModelAdmin):
     model = Person
-    fields = ['famili', 'phone', 'birth_date', 'status', 'zadachi', 'descreption', 'ispolneno', 'nado' ]
-    list_display = ('famili', 'phone', 'status', 'zadachi' , 'ispolneno', 'nado')
+    fields = ['famili', 'pers', 'phone', 'birth_date', 'status', 'zadachi', 'descreption', 'ispolneno', 'nado' ]
+    list_display = ('famili', 'pers', 'phone', 'status', 'zadachi' , 'ispolneno', 'nado')
 
 admin.site.register(Person, PersonAdmin)
 
@@ -54,10 +54,11 @@ admin.site.register(DomDokument, DomDokumentAdmin)
 
 
 class ArticulAdmin(admin.ModelAdmin):
+    fields = ['tags', 'art', 'region', 'mesto', 'kod_phone', 'nomer', 'slug']
     model = Articul
-    fieldsets = (
-        (None, {'fields': ('tags',)}),
-    )
+    # fieldsets = (
+    #     (None, {'fields': ('tags',)}),
+    # )
     exclude = ['',]
     list_display = ('art',)
     inlines = [DomDokumentInline, AdresInline, PersonInline, FotoDomInline]

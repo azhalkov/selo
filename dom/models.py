@@ -6,6 +6,8 @@ from taggit.managers import TaggableManager
 from django.urls import reverse
 from transliterate import slugify
 
+from accounts.models import CustomUser
+
 
 class CategoriManager(models.Manager):
     use_for_related_fields = True
@@ -29,7 +31,7 @@ class Articul(models.Model):
                              help_text="Шестизначное число", default='000000')
     slug = models.SlugField('Уникальная ссылка', max_length=19, unique=True, blank=True, null=True)
     objects = CategoriManager()
-    tags = TaggableManager(verbose_name="Тэги")
+    tags = TaggableManager(verbose_name="Тэги", blank=True)
 
 
 
@@ -80,6 +82,7 @@ class Person(models.Model):
         ('Uri', 'Юрист'),
         ('Pom', 'Помошник'),
     )
+    pers = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True)
     famili = models.CharField(u'ФИО', max_length=500, blank=True, null=True)
     phone = models.CharField(u'Телефон', max_length=500, blank=True, null=True)
     birth_date = models.DateField(u'День рождения', null=True, blank=True)
@@ -88,7 +91,7 @@ class Person(models.Model):
     descreption = models.TextField(u'Задача', max_length=500, blank=True, null=True)
     ispolneno = models.BooleanField(u'Исполнено', default=False)
     nado = models.BooleanField(u'В работе', default=False)
-    artikyl = models.ForeignKey(Articul, verbose_name='Участники', on_delete=models.SET_NULL, null=True)
+    artikyl = models.ForeignKey(Articul, verbose_name=u'Участники', on_delete=models.SET_NULL, null=True)
     objects = CategoriManager()# Установка менеджера для поиска в модель
 
 
@@ -126,11 +129,12 @@ class DomDokument(models.Model):
 
 class Adres(models.Model):
     """Адрес объекта"""
+    price = models.CharField('Цена', max_length=12, default='?')
     name_krai = models.CharField('Край, область', max_length=128)
     gorod = models.CharField('Нас. пункт', max_length=128, )
     raion = models.CharField('Район', max_length=128)
     street = models.CharField('Улица', max_length=128)
-    n_doma = models.CharField('№ дома', max_length=10, default=0)
+    n_doma = models.CharField('№ дома', max_length=10, default='')
     n_kvartiri = models.CharField('№ квартиры', max_length=128, blank=True, null=True, default=0)
     n_podezda = models.CharField('№ подъезда', max_length=128, blank=True, null=True, default=0)
     slug = models.SlugField('Ссылка', max_length=160, unique=True, blank=True, null=True)

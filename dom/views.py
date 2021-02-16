@@ -167,6 +167,19 @@ class AdresDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
+class SearchAdresaView(ListView):
+    model = Adres
+    template_name = 'dom/pokaz/adres_list.html'
+
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        object_list = Adres.objects.filter(
+            Q(gorod__icontains=query) | Q(raion__icontains=query)
+        )
+        return object_list
+
+
+
 
 class PoiskAdres(ListView):
     """Класс поиска по артикулу"""
@@ -174,18 +187,18 @@ class PoiskAdres(ListView):
     template_name = 'dom/search_list.html'
 
 
-class SearchResultsView(ListView):
-    model = Articul
-    template_name = 'dom/search_list.html'
-    context_object_name = 'da'
-
-
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        if query == None:
-            query = '123'
-        artikuli = Articul.objects.filter(region__istartswith=query)
-        return artikuli
+# class SearchResultsView(ListView):
+#     model = Articul
+#     template_name = 'dom/search_list.html'
+#     context_object_name = 'da'
+#
+#
+#     def get_queryset(self):
+#         query = self.request.GET.get('q')
+#         if query == None:
+#             query = '123'
+#         artikuli = Articul.objects.filter(region__istartswith=query)
+#         return artikuli
 
 
 
@@ -223,24 +236,24 @@ class PoiskDomView(ListView):
 
 
 
-class ArticulDetailView(DetailView):
-    model = Articul
-    template_name = 'dom/poisk/dom_poisk_detail.html'
-    queryset = Articul.objects.all()
-    context_object_name = 'ok' # имя модели для html шаблона
+# class ArticulDetailView(DetailView):
+#     model = Articul
+#     template_name = 'dom/poisk/dom_poisk_detail.html'
+#     queryset = Articul.objects.all()
+#     context_object_name = 'ok' # имя модели для html шаблона
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         # context['now'] = timezone.now()
+#         return context
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['now'] = timezone.now()
-        return context
 
-
-class SearchDetailView(DetailView):
-    model = Articul
-    template_name = 'dom/dom_search_detail.html'
-    queryset = Articul.objects.all()
-    # slug_field = 'url'
-    context_object_name = 'da'  # имя модели для html шаблона
-
+# class SearchDetailView(DetailView):
+#     model = Articul
+#     template_name = 'dom/dom_search_detail.html'
+#     queryset = Articul.objects.all()
+#     # slug_field = 'url'
+#     context_object_name = 'da'  # имя модели для html шаблона
+#
 
 
