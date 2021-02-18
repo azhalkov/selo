@@ -1,18 +1,18 @@
-
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
+
 <html>
 <head>
+
+    <meta charset="utf-8">
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-    <link href="{% static '/urokipy/css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link href="{% static 'bulma_css/bulma.css' %}" type="text/css" rel="stylesheet" media="screen,projection">
+
     <title> {% block title %}
         Партнер
         {% endblock title %}</title>
@@ -20,104 +20,207 @@
 
 <body>
 
-
-{% block menu %}
-{% include 'urokipy/menu.html' %}
-{% endblock %}
-
-{% block header %}
-<div class="container">
-    <h3>Партнерство</h3>
-
-    <ul class="collection with-header">
-        <li class="collection-header purple accent-2"><h4>Два факта о невозможной продаже недвижимости:</h4></li>
-        <li class="collection-item">
-            У тебя нет недвижимости
-        </li>
-        <li class="collection-item">
-            Никто не знает , что недвижимость продается
-        </li>
-    </ul>
-</div>
-{% endblock %}
-
-{# Блок контента три колонки #}
-{% block content %}
-
-<div class="container">
+{% block auntifikate %}
+<div class="container mt-3 bg-success ">
     <div class="row">
-        <div class="col s2">
-            <p>Переходы</p>
-            <hr>
-{% include 'dom/menu.html' %}
-        </div>
-        <div class="col s8">
-            <h3>Коротко о главном</h3>
-            <hr>
-                    <h5>Вопросы собеседования с ответами.</h5>
-                    <h6>!. Кто может стать партнером сайта? </h6>
-                        <p>Человек любого возраста, пола и национальности, соблюдающий условия выполнения
-                            услуги которую выполняет для заказчика. Условия выполнения той или иной услуги в точности
-                            прописаны на страницах сайта.</p>
-                    <h6>!. Стоимость услуги </h6>
-                        <p>Бесплатно - до трех объявлений.(необходимо подать бесплатное заявление партнеру сайта).
-                            За деньги(2000 рублей). В стоимость входит выполнение следующих работ: фотосъемка объекта,
-                            форматирование фотографий, написание продающего текста объявления, размещение на сайте,
-                            передача электронным способом артикула объявления заказчику. Свыше 5-ти километров до
-                            объекта возможны дополнительые расходы на транспорт.Цена за услугу указана на сайте.
-                            Повышать стоимость запрещено. Удобно для тех кто продает удаленно, за оплату
-                            всю работу по размещению объявления сделает партнер сайта.
-                        </p>
-            <h6>!.Почему у сайта простой дизайн?</h6>
-                        <p>Покупка и продажа недвижимости очень важный вопрос требующий серьезного отношения,
-                        данный сайт - это программа написана на добровольной основе без получения прибыли, на пользу
-                            людям для обмена информацией, для пользователя отсутствуют дополнительные расходы. Поднятие
-                            объявлений на странице поиска, происходит рандомно(случайный выбор). Денежные вознаграждения
-                            от посетителей принимаются в ввиде благотворительности и по желанию.
-                            Помог сайт - скажи спасибо создателям в виде перевода.
-                        </p>
-            <h6>!. Риэлтор может размещать фото объектов недвижимости? </h6>
-                        <p>Да. Дополнительно для агентов по недвижимости в бесплатном личном кабинете, можно подключить,
-                            платные услуги сторнних сайтов. Оплата на этом сайте такая же как и для всех.
-                            Первые три объекта - бесплатно. Оплата следующих идет на содержание сайта. Подписываем договор.
-                        </p>
-            <h6>!. Кто продает недвижимость? </h6>
-                        <p>В составлении объявления присутсвует строка продавца. От собственника, агенство, помошник.
-                            Эта строка заполняется партнером сайта, после проверки документов на собственность.
-                        Для подачи объявления необходимо заявление на размещение и предъявление паспорта живому человеку
-                            - партнеру сайта. Эти простые действия, дают уверенность , что объявление разместил
-                        реальный человек.</p>
-            <h6>!. Как стать парнером сайта? </h6>
-                        <p>Очень просто. Телефонный звонок администратору. Расскажите что Вы умеете делать.
-                        Предоставте выполненную работу. Ничего не умеете , но очень хотите - приветсвуется.
-                        Поможем. Предоставим обучающие материалы. Оценим результат Вашей работы.
-                        Сделанно качественно - подходите.</p>
-            <h6>!. Налоги </h6>
-                        <p>Сайт - это программа. Программа не может Вас принять на работу или уволить. Вы самостоятельно
-                            определяете действия по оплате налогов.</p>
-            <h6>!. Стоимость услуги </h6>
-                        <p>-------------------------------
-                        че</p>
-            <h6>!. Стоимость услуги </h6>
-                        <p>-------------------------------
-                        че</p>
-
-
+        {% if user.is_authenticated %}
+        <div class="col-sm-2">
+            <p class="badge badge-success mt-3"> Благополучия {{ user.username }}!
+                <a class='badge badge-light' href="{% url 'logout' %}" >Выход из учетной записи</a></p>
 
         </div>
-        <div class="col s2">
-            <p>Полезно знать</p>
-            <hr>
+        {% else %}
+        <a href="{% url 'index' %}" class="badge badge-success">Смотреть как гость</a>
+        <div class="col-sm-3">
+            <a href="{% url 'login' %}" class="badge badge-success">Войти</a>
+            {% block main %}
+            {% endblock %}
+
+            <a href="{% url 'signup' %}" class="badge badge-success">Зарегистрироваться</a>
+            {% block registr %}
+            {% endblock registr %}
         </div>
+        {% endif %}
+
     </div>
+    {% endblock %}
+
+    <span class="icon bd-link-icon">
+      <i class="fas fa-star "></i>
+         <i class="fas fa-city "></i>
+         <i class="fas fa-star "></i>
+         <i class="fas fa-star "></i>
+         <i class="fas fa-star "></i>
+    </span>
+
+
+
+    {% block menu %}
+    {% include 'partner/menu.html' %}
+    {% endblock %}
+
+
+
+
+    {% block header %}
+
+    <div class="container is-max-desktop mt-3">
+  <div class="notification is-primary">
+      <div class="box is-large">
+    Стать партнером просто, <code>показать свои умения</code> и <code>пройти собеседование</code> вопросы и ответы ниже.
+           <span class="icon has-text-success">
+  <i class="fas fa-check-square"></i>
+</span>
+      </div>
+  </div>
 </div>
 
-{% endblock content %}
 
-<!--JavaScript at end of body for optimized loading-->
-<script type="text/javascript" src="js/materialize.min.js"></script>
+        <div class="content mt-5">
 
-<script>
+           <p class="title"> Вопросы и ответы собеседования:</p>
+
+        </div>
+<div class="content">
+        <article class="message is-primary">
+            <div class="message-body">
+                <p>!. Кто может стать партнером сайта?</p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+                <p>Человек любого возраста, пола и национальности. Тот кто ценит свою работу и выполняет её качественно.</p>
+                <p>Тот кто относится к людям так как хочет, чтоб относились к нему.</p>
+            </div>
+        </article>
+
+      <article class="message is-primary">
+            <div class="message-body">
+                <p>!. "Публикация объявления" . Самостоятельно.</p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+
+                <p>Бесплатно - до трех объявлений. Подать заявление на получение порядкового номера объявления в
+                    вашем населенном пункте партнеру сайта(информация о котором вы найдете в своем личном кабинете). При себе иметь паспорт и свидетельство на право собственности для предъявления.
+                </p>
+            </div>
+        </article>
+
+
+       <article class="message is-primary">
+            <div class="message-body">
+                <p>!. "Публикация объявления" . Платно.</p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+
+                <p>Платно. Стоимось - 2000 рублей. Позвоните партнеру сайта и договоритесь о встрече. Больше ничего делать не надо. В стоимость входит выполнение следующих работ: фотосъемка объекта, форматирование фотографий, написание продающего текста объявления, размещение на сайте, передача электронным способом артикула объявления заказчику. Свыше 5-ти километров до объекта возможны дополнительные расходы на транспорт. Удобно для тех кто продает удаленно, за оплату всю работу по размещению объявления сделает партнер сайта. </p>
+            </div>
+        </article>
+
+
+    <article class="message is-primary">
+            <div class="message-body">
+                <p>!. Риэлтор может размещать фото объектов недвижимости? </p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+                <p>Да. Дополнительно для агентов по недвижимости в бесплатном личном кабинете, можно подключить, платные услуги сторнних сайтов. Оплата на этом сайте такая же как и для всех. Первые три объекта - бесплатно. Оплата следующих идет на содержание сайта. Подписываем договор оказания партнерских услуг.  </p>
+            </div>
+        </article>
+
+
+
+    <article class="message is-primary">
+            <div class="message-body">
+                <p>!. Кто продает недвижимость? </p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+                <p> В составлении объявления присутсвует строка продавца. От собственника, агенство, помошник. Строка заполняется партнером сайта, после проверки документов на собственность. Для подачи объявления необходимо заявление на размещение и предъявление паспорта живому человеку - партнеру сайта. Эти простые действия, дают уверенность , что объявление разместил реальный человек.</p>
+            </div>
+        </article>
+
+
+        <article class="message is-primary">
+            <div class="message-body">
+                <p>!. Как стать парнером сайта?  </p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+                <p> Очень просто. Телефонный звонок администратору. Расскажите что Вы умеете делать. Предоставте выполненную работу. Ничего не умеете , но очень хотите - приветствуется. Поможем. Предоставим обучающие материалы. Оценим результат Вашей работы. Сделанно качественно - подходите.</p>
+            </div>
+        </article>
+
+
+        <article class="message is-primary">
+            <div class="message-body">
+                <p>!. Налоги </p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+                <p> Сайт - это программа. Программа не может Вас принять на работу или уволить. Вы самостоятельно определяете действия по оплате налогов.</p>
+            </div>
+        </article>
+
+
+        <article class="message is-primary">
+            <div class="message-body">
+                <p>!. Какая польза от сайта? </p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+                <p> Бесплатный обмен полезной информацией. Продавец размещает объявление потратив немного времени на подачу заявления.
+                Покупатель находит объявление и связывается напрямую с продавцом. Платные услуги партнеров
+                помогают пользователям в решении важных вопросов. Проверка документов, заключение сложных договоров,
+                сделать фото или видео, написать хороший текст, показать объект в отсутсвии хозяина или провести сложные переговоры, оценить недвижимость. Оценку работы партнеров делают пользователи в виде отзывов.
+                Отзывам уделено особое внимание. При заключении договора с партнером обязательно согласие на размещение
+                    независимых оценок работы. Отзывы на сайте размещается по письменному заявлению.
+                </p>
+            </div>
+        </article>
+
+
+        <article class="message is-primary">
+            <div class="message-body">
+                <p>!. Кто продает недвижимость? </p>
+            </div>
+        </article>
+        <article class="message is-info">
+            <div class="message-body">
+                <p> </p>
+            </div>
+        </article>
+
+
+    </div>
+    {% endblock %}
+
+    {# Блок контента три колонки #}
+    {% block content %}
+
+<div class="container is-max-desktop">
+  <div class="notification is-primary">
+    Стать партнером просто, <code>показать свои умения</code> и <code>пройти собеседование</code> вопросы и ответы выше.
+  </div>
+</div>
+    <hr>
+
+
+    {% endblock content %}
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+
+    <script>
 
     document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.sidenav');

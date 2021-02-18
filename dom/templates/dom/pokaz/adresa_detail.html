@@ -1,13 +1,17 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Подробности</title>
 </head>
 <body>
 
 
 <h2> 1 {{ adresa.categorii }}</h2>
+{% if adresa.minimage %}
+<img src="{{ adresa.minimage.url }}" alt="{{ adresa.name_krai }}" height="150" width="150">
+  {% endif %}
 
 <h3> 1 {{ adresa.arti_dokument.art }}</h3>
 <p> 2 {{ adresa.name_krai }}</p>

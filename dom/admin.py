@@ -74,6 +74,13 @@ class AdresAdmin(admin.ModelAdmin):
                     'is_prodano', 'is_activ', 'n_kvartiri', 'n_podezda',  'is_arenda', 'descreption')
     # inlines = [PersonInline,]
     # list_editable = ('is_activ', 'is_prodaju', 'is_prodano',)
+    # readonly_fields = ('get_image',)  # Добавит поле в админку
+    # # list_display = (get_image, ...)  # добавить метод в лист дисплей
+    #
+    # def get_image(self, obj):
+    #     return mark_safe(f'<img src={obj.minimage.url} width=50 height=60 >')
+    #
+    # get_image.short_description = 'Миниатюра'
 
 
 admin.site.register(Adres, AdresAdmin)

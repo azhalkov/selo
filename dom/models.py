@@ -130,6 +130,7 @@ class DomDokument(models.Model):
 class Adres(models.Model):
     """Адрес объекта"""
     price = models.CharField('Цена', max_length=12, default='?')
+
     name_krai = models.CharField('Край, область', max_length=128)
     gorod = models.CharField('Нас. пункт', max_length=128, )
     raion = models.CharField('Район', max_length=128)
@@ -137,7 +138,7 @@ class Adres(models.Model):
     n_doma = models.CharField('№ дома', max_length=10, default='')
     n_kvartiri = models.CharField('№ квартиры', max_length=128, blank=True, null=True, default=0)
     n_podezda = models.CharField('№ подъезда', max_length=128, blank=True, null=True, default=0)
-    slug = models.SlugField('Ссылка', max_length=160, unique=True, blank=True, null=True)
+    slug = models.SlugField('Ссылка', max_length=160, blank=True, null=True)
     is_activ = models.BooleanField('На сайте', default=False, blank=True, null=True)
     is_prodaju = models.BooleanField('Продается', default=False, blank=True, null=True)
     is_prodano = models.BooleanField('Продано', default=False, blank=True, null=True)
@@ -145,7 +146,11 @@ class Adres(models.Model):
     descreption = models.TextField('Объявление', max_length=5000, blank=True, null=True)
     arti_dokument = models.ForeignKey(Articul, verbose_name='Артикул', on_delete=models.SET_NULL, null=True)
     categorii = models.ForeignKey(Categori, verbose_name='Категория земель', on_delete=models.SET_NULL, null=True)
+
+    minimage = models.ImageField('Миниатюра', upload_to="images" , blank=True, null=True)
     objects = CategoriManager()# Установка менеджера для поиска в модель
+
+
 
 
     def __str__(self):
@@ -153,6 +158,10 @@ class Adres(models.Model):
 
     def get_absolute_url(self):
         return reverse('adresa_detail', args=(self.slug,))
+
+    def new_path(self):
+        path = str(self.arti_dokument)
+        return path
 
     class Meta:
         default_related_name = 'ad_res'

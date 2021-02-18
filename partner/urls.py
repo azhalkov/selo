@@ -11,7 +11,7 @@ from . import views
 
 urlpatterns = [
 
-    path('', TemplateView.as_view(template_name='partner/home.html'), name='uroki'),
+    path('', TemplateView.as_view(template_name='partner/home.html'), name='partneram'),
     # path('spisok/', KartaListView.as_view(template_name='urokipy/stroki.html'), name='spisok'),
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \

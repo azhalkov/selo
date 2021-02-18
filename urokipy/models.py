@@ -18,3 +18,10 @@ class Karta(models.Model):
     class Meta:
         verbose_name = 'Памятка'
         verbose_name_plural = 'Памятки'
+
+
+class Bulma(Karta):
+    class Meta:
+        verbose_name = 'Карточка bulma'
+        verbose_name_plural = 'Памятки bulma'
+
