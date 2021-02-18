@@ -5,6 +5,9 @@
 <nav class="navbar navbar-expand-sm bg-light mt-3">
 
     <ul class="navbar-nav mr-auto">
+      <li>
+        <a href="/">На главную</a>
+      </li>
       {% if user.is_superuser %}
       <li class="nav-item active">
         <a class="nav-link" href="/admin"> Aдмин <span class="sr-only">(current)</span></a>
@@ -50,11 +53,11 @@
 
 </div>
 
-
+<!--  Блок простого поиска -->
 <div class="container mt-2">
 <div class="mb-3">
   <form class="row mt-4" action="{% url 'search' %}" method="get">
-        <input name="q" type="text" placeholder="Введите назваие населенного пункта" >
+        <input name="q" type="text" placeholder="Введите название населенного пункта" >
         <button class="btn btn-outline-success " type="submit">Поиск</button>
       </form>
 </div>

@@ -1,0 +1,96 @@
+<!-- Подключаем страницу index приложения dom базовый шаблон на boostrap 5 -->
+{% extends 'dom/index.html' %}
+
+<!-- Блок мета для каждой страницы можно изменить мета -->
+{% block metaname %}
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+{% endblock  %}
+
+<!--     Блок заголовка страницы   -->
+{% block title %}shablon_index{% endblock title %}
+
+
+<!-- Блок для сообщений -->
+{% block verx %}
+<div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Внимание!</strong> Блок полезных сообщений.
+    <div class="container">
+        <h3>Подбор недвижимости. Услуги на расстоянии.</h3>
+        <a href="#" data-toggle="popover" title="Назначение сайта" data-content="Бесплатная площадка для
+  размещения объектов недвижимости. Публикуйте, ищите, нанимайте. Общение без посредников. Личный
+рабочий кабинет. Найти недвижимость. Опубликовать объявление. Нанять специалиста.">ИНФО</a>
+    </div>
+</div>
+
+{% endblock verx %}
+
+
+
+<!-- блок авторизации пользователя-->
+{% block auntifikate %}
+<div class="container mt-3 bg-success ">
+    <div class="row">
+        {% if user.is_authenticated %}
+        <div class="col-sm-2">
+            <p class="badge badge-success mt-3"> Благополучия {{ user.username }}!
+                <a href="{% url 'logout' %}" class="badge badge-light">Выход из учетной записи</a></p>
+
+        </div>
+        {% else %}
+        <a href="{% url 'index' %}" class="badge badge-success">Смотреть как гость</a>
+        <div class="col-sm-3">
+            <a href="{% url 'login' %}" class="badge badge-success">Войти</a>
+            {% block main %}
+            {% endblock %}
+
+            <a href="{% url 'signup' %}" class="badge badge-success">Зарегистрироваться</a>
+            {% block registr %}
+            {% endblock registr %}
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+    {% endblock %}
+
+
+<!-- Панель меню -->
+{% block menu %}
+
+{% include "dom/menu.html" %}
+
+{% endblock menu %}
+
+
+{% block content_center %}
+
+{% endblock content_center %}
+
+
+<!--Блок низ сайта-->
+{% block footer %}
+<hr>
+<hr>
+{% endblock footer %}
+
+
+<!--Блок для размещения скриптов-->
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover();
+});
+</script>
+{% endblock script%}
+
+<hr>
+<hr>
+<hr>
+<hr>

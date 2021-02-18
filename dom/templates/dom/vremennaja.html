@@ -1,0 +1,81 @@
+
+
+
+
+
+
+
+
+
+
+<div class="container mt-3">
+
+    {% for dom in object_list %}
+    {% if dom.is_activ %}
+    <div class="w3-col m4 l3 w3-margin-left">
+        <div class="w3-card-4 w3-section">
+            <div class="w3-container w3-success">
+                {% if dom.minimage %}
+                <img src="{{ dom.minimage.url }}" alt="" height="150" width="150">
+                {% endif %}
+
+                <p class="card-title">{{ dom.price }}</p>
+                 <i class="bi-alarm" style="font-size: 2rem; color: cornflowerblue;"></i>
+                <p><i class="bi-alarm" style="font-size: 1rem; color: cornflowerblue;"></i>{{ dom.name_krai }}</p>
+                <p class="card-text">2{{ dom.gorod }}</p>
+                <p>3{{ dom.raion }}</p>
+                <p>4{{ dom.street }}</p>
+                <p>5{{ dom.n_doma }}</p>
+                <p>6{{ dom.n_kvartiri }}</p>
+                <p>7{{ dom.n_podezda }}</p>
+
+
+                <a href="/dom/adresa/{{ dom.slug }}">Ссылка1</a>
+
+
+                {% if dom.is_activ %}
+                <p>9Размещен на сайте</p>
+                {% endif %}
+
+                {% if  dom.is_prodaju  %}
+                <p>10Продается</p>
+                {% endif %}
+
+                {% if  dom.is_prodano  %}
+                <p>11Продан</p>
+                {% endif %}
+
+                {% if  dom.is_arenda  %}
+                <p>12Аренда</p>
+                {% endif %}
+                <p>13{{ dom.descreption }}</p>
+                <p>14{{ dom.arti_dokument }}</p>
+
+
+                <hr>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor%}
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col sm-12">
+
+
+            <ul>
+                {% for city in object_list %}
+                <li>
+                    {{ city.price }}, {{ city.gorod }}
+
+                    <a href="/dom/adresa/{{ city.slug }}">Ссылка</a>
+                </li>
+                <hr>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
