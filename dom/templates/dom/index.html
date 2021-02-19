@@ -25,7 +25,7 @@
     <div class="container">
         <h3>Подбор недвижимости. Услуги на расстоянии.</h3>
         <a href="#" data-toggle="popover" title="Назначение сайта" data-content="Бесплатная площадка для
-  размещения объектов недвижимости. Публикуйте, ищите, нанимайте. Общение без посредников. Личный
+  размещения объектов недвижимости. Публикуйте, ищите, нанимайте. Общение c посредниками или напрямую. Личный
 рабочий кабинет. Найти недвижимость. Опубликовать объявление. Нанять специалиста.">ИНФО</a>
     </div>
 </div>
@@ -46,12 +46,7 @@
         <a href="{% url 'index' %}" class="badge badge-success">Смотреть как гость</a>
         <div class="col-sm-3">
             <a href="{% url 'login' %}" class="badge badge-success">Войти</a>
-            {% block main %}
-            {% endblock %}
-
             <a href="{% url 'signup' %}" class="badge badge-success">Зарегистрироваться</a>
-            {% block registr %}
-            {% endblock registr %}
         </div>
         {% endif %}
 
@@ -61,27 +56,109 @@
 
 <!-- Панель меню -->
 {% block menu %}
-
 {% include "dom/menu.html" %}
-
 {% endblock menu %}
 
-
-{% block content_center %}
-<!--<div class="container">-->
-<!--        <a href="#" data-toggle="popover" title="Информация" data-content="Подсказки.Скрипт">♥</a>-->
-<!--    </div>-->
-
-<div class="container">
-{% include "dom/content_center/zagolovok.html" %}
+{% block poisk %}
+<!--  Блок простого поиска -->
+<div class="container mt-2">
+    <div class="mb-3">
+        <form class="row mt-4" action="{% url 'search' %}" method="get">
+            <input name="q" type="text" placeholder="Введите название населенного пункта" >
+            <button class="btn btn-outline-success mt-4" type="submit">Поиск</button>
+        </form>
     </div>
-{% endblock content_center %}
+</div>
+{% endblock %}
+
+
+{% block zagolovok %}
+<!-- Заголовок -->
+<div class="jumbotron text-center mt-3">
+    <h1>Сельская недвижимость.</h1>
+</div>
+{% endblock%}
+
+
+    {% block content_center %}
+<div class="container">
+    <!-- Блок трех колонок -->
+
+
+    <div class="container mt-5">
+        <div class="row">
+
+
+            <!-- Первая колонка -->
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Кому</h3>
+                        <p  class="card-text">
+                            <a href="{% url 'prodavcu' %}"> Продавцам</a> и покупателям</p>
+                        <p  class="card-text"><a href="{% url 'partner' %}">Юристам и мастерам</a></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Вторая колонка -->
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Зачем</h3>
+                        <p  class="card-text">Общение без посредников</p>
+                        <p  class="card-text">Понятные <a href="{% url 'ceni' %}">цены</a></p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Третья колонка -->
+            <div class="col-sm-4">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h3 class="card-title">Как</h3>
+                        <p  class="card-text">Анонимно без регистрации.</p>
+                        <p  class="card-text">Использовать личный кабинет.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+        {% endblock content_center %}
+
+
+{% block content_two %}
+
+<!-- Три колонки -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- первая -->
+        <div class="col sm-4">
+            <a href="#" type="button" class="btn btn-outline-success btn-lg btn-block">Продать</a>
+        </div>
+        <!-- вторая -->
+        <div class="col sm-4">
+            <a href="#" type="button" class="btn btn-outline-success btn-lg btn-block">Купить</a>
+        </div>
+        <!-- первая -->
+        <div class="col sm-4">
+            <a href="/partneri/" type="button" class="btn btn-outline-success btn-lg btn-block">Заработать</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content_two %}
+
 
 
 <!--Блок низ сайта-->
 {% block footer %}
-<hr>
-<hr>
+
 {% endblock footer %}
 
 

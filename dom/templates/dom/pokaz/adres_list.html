@@ -54,46 +54,70 @@
 
 <!-- Панель меню -->
 {% block menu %}
-
 {% include "dom/menu.html" %}
-
 {% endblock menu %}
+
+{% block poisk %}
+<!--  Блок простого поиска -->
+<div class="container mt-2">
+<div class="mb-3">
+  <form class="row mt-4" action="{% url 'search' %}" method="get">
+        <input name="q" type="text" placeholder="Введите название населенного пункта" >
+        <button class="btn btn-outline-success mt-4" type="submit">Поиск</button>
+      </form>
+</div>
+</div>
+{% endblock %}
+
+
+<!-- Заголовок -->
+{% block zagolovok %}
+<div class="jumbotron text-center mt-3">
+    <h1>Недвижимость, миниатюра с ценой.</h1>
+</div>
+{% endblock%}
 
 
 {% block content_center %}
 
-<div class="container">
-    {% for dom in object_list %}
-
-    {% if dom.is_activ %}
-    <div class="w3-col m4 l3 w3-margin-left">
-        <div class="w3-card-4 w3-section">
-            <div class="w3-container w3-success">
-                <p class="card-text">Город: {{ dom.gorod }}</p>
-                {% if dom.minimage %}
-                <img src="{{ dom.minimage.url }}" class="img-thumbnail" alt="" height="150" width="150">
+<div class="container mt-4">
+    <div class="row">
+        {% for dom in object_list %}
+        <div class="col">
+        {% if dom.is_activ %}
+            <div class="card mt-3" style="width: 15rem;">
+            {% if dom.minimage %}
+            <img src="{{ dom.minimage.url }}" class="img-thumbnail" alt="">
                 {% endif %}
-                <div class="dropdown">
+  <div class="card-body">
 
-                    <p class="card-title">Стоимость: {{ dom.price }}</p>
-                    <a href="/dom/adresa/{{ dom.slug }}">Подробности</a>
+    <h5 class="card-title">Стоимость: {{ dom.price }}</h5>
 
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    {% endfor %}
+    <p class="card-text">Город: {{ dom.gorod }}</p>
+      <hr>
+    <a href="/dom/adresa/{{ dom.slug }}" class="btn btn-outline-success">Подробности</a>
+  </div>
 </div>
+{% endif %}
+            </div>
 
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock content_center %}
 
 
+
+{% block content_two %}
+
+{% endblock content_two %}
+
+
+
 <!--Блок низ сайта-->
 {% block footer %}
-<hr>
-<hr>
+
 {% endblock footer %}
 
 
@@ -112,7 +136,3 @@ $(document).ready(function(){
 
 {% endblock script%}
 
-<hr>
-<hr>
-<hr>
-<hr>

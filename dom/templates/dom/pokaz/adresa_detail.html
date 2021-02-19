@@ -1,54 +1,122 @@
-<!DOCTYPE html>
+{% extends 'dom/index.html' %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Подробности</title>
-</head>
-<body>
+<title>{% block title %}index{% endblock title %}</title>
+
+{% block auntifikate %}
+{% endblock %}
+
+{% block zagolovok %}
+<!-- Заголовок -->
+<div class="jumbotron text-center mt-3">
+    <h1>{{ adresa.gorod }}</h1>
+</div>
+{% endblock%}
+
+{% block content_center %}
+
+<div class="container">
+    <!-- Блок трех колонок -->
 
 
-<h2> 1 {{ adresa.categorii }}</h2>
-{% if adresa.minimage %}
-<img src="{{ adresa.minimage.url }}" alt="{{ adresa.name_krai }}" height="150" width="150">
-  {% endif %}
+    <div class="container mt-5">
+        <div class="row">
 
-<h3> 1 {{ adresa.arti_dokument.art }}</h3>
-<p> 2 {{ adresa.name_krai }}</p>
-<h5> 3 {{ adresa.gorod }}</h5>
-<h5> 4 {{ adresa.raion }}</h5>
-<h5> 5 {{ adresa.street }}</h5>
-<h5> 6 {{ adresa.n_doma }}</h5>
-<h5> 7 {{ adresa.n_kvartiri }}</h5>
-<h5> 8 {{ adresa.n_podezda }}</h5>
-<h6>Ссылка {{ adresa.slug }}</h6>
-
-<h5>Артикул {{ adresa.arti_dokument }}</h5>
+            <h2> Категория недвижимости: {{ adresa.categorii }}</h2>
 
 
+            <!-- Первая колонка -->
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Объявление №: {{ adresa.arti_dokument.art }}</h3>
+                        {% if adresa.minimage %}
+                        <img src="{{ adresa.minimage.url }}" alt="{{ adresa.name_krai }}" height="150" width="150">
+                        {% endif %}
+                        <p  class="card-text">{{ adresa.name_krai }}</p>
+                        <p  class="card-text">{{ adresa.gorod }}</p>
+                        <p  class="card-text">{{ adresa.raion }}</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вторая колонка -->
+            <div class="col-sm-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">ул. - {{ adresa.street }}</h3>
+                        <p  class="card-text">№ {{ adresa.n_doma }}</p>
+                        {% if adresa.n_kvartiri %}
+                        <p  class="card-text">квартира №{{ adresa.n_kvartiri }}</p>
+                        {% endif %}
+                        {% if adresa.n_podezda %}
+                        <p  class="card-text">подъезд №{{ adresa.n_podezda }}</p>
+                        {% endif %}
+                        <a href="/dom/adresa/{{adresa.slug}}">Ссылка на это объявление.</a>
+                        <p>/dom/adresa{{ adresa.slug }}</p>
+                        {% if adresa.is_prodaju %}
+                        <h5>Продается </h5>
+                        {% endif %}
+                        {% if adresa.is_arenda %}
+                        <p>  Аренда </p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
 
 
-{% if adresa.is_activ %}
-<h5> 9 На сайте{{ adresa.is_activ }}</h5>
-{% endif %}
 
-{% if adresa.is_prodaju %}
-<h5> 10 Продаю </h5>
-{% endif %}
+            <!-- Третья колонка -->
+            <div class="col-sm-4">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h3 class="card-title">Объявление</h3>
+                        <p> {{ adresa.descreption }}</p>
+                        <h5> 14 {{ adresa.arti_dokument }}</h5>
+                        <p  class="card-text"></p>
+                        <p  class="card-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content_center %}
 
 {% if adresa.is_prodano %}
 <h5> 11 Продано </h5>
 {% endif %}
 
-{% if adresa.is_arenda %}
-<h5> 12 Аренда </h5>
-{% endif %}
+
+{% block content_two %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- первая -->
+        <div class="col sm-12">
+            <div class="container">
+
+                <div class="card">
+                    <h3 class="card-title">Объявление №: {{ adresa.arti_dokument.art }}</h3>
+                        {% if adresa.minimage %}
+                        <img src="{{ adresa.minimage.url }}" alt="{{ adresa.name_krai }}" height="150" width="150">
+                        {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+{% endblock content_two %}
 
 
-<h5> 13 {{ adresa.descreption }}</h5>
-<h5> 14 {{ adresa.arti_dokument }}</h5>
 
 
 
-</body>
-</html>
+
+
+
+
