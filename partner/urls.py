@@ -7,11 +7,12 @@ from django.views.generic import TemplateView
 from urokipy.views import KartaListView
 
 from . import views
-
+from .views import UslugaListView
 
 urlpatterns = [
 
     path('', TemplateView.as_view(template_name='partner/home.html'), name='partneram'),
+    path('usluga', UslugaListView.as_view(template_name='partner/uslugi.html'), name='partneram'),
     # path('spisok/', KartaListView.as_view(template_name='urokipy/stroki.html'), name='spisok'),
 
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \

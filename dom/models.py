@@ -7,6 +7,7 @@ from django.urls import reverse
 from transliterate import slugify
 
 from accounts.models import CustomUser
+from partner.models import Usluga
 
 
 class CategoriManager(models.Manager):
@@ -92,7 +93,7 @@ class Person(models.Model):
     ispolneno = models.BooleanField(u'Исполнено', default=False)
     nado = models.BooleanField(u'В работе', default=False)
     artikyl = models.ForeignKey(Articul, verbose_name=u'Участники', on_delete=models.SET_NULL, null=True)
-    objects = CategoriManager()# Установка менеджера для поиска в модель
+    objects = CategoriManager()  # Установка менеджера для поиска в модель
 
 
     def __str__(self):
@@ -146,9 +147,9 @@ class Adres(models.Model):
     descreption = models.TextField('Объявление', max_length=5000, blank=True, null=True)
     arti_dokument = models.ForeignKey(Articul, verbose_name='Артикул', on_delete=models.SET_NULL, null=True)
     categorii = models.ForeignKey(Categori, verbose_name='Категория земель', on_delete=models.SET_NULL, null=True)
-
+    uslugi_partnerov = models.ManyToManyField(Usluga, related_name='adress', blank=True)
     minimage = models.ImageField('Миниатюра', upload_to="images" , blank=True, null=True)
-    objects = CategoriManager()# Установка менеджера для поиска в модель
+    objects = CategoriManager()  # Установка менеджера для поиска в модель
 
 
 

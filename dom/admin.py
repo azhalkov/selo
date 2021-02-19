@@ -71,8 +71,10 @@ admin.site.register(Articul, ArticulAdmin)
 
 class AdresAdmin(admin.ModelAdmin):
     model = Adres
-    list_display = ('arti_dokument', 'categorii', 'name_krai', 'gorod', 'raion', 'street', 'n_doma','is_prodaju',
-                    'is_prodano', 'is_activ', 'n_kvartiri', 'n_podezda',  'is_arenda', 'descreption')
+    list_display = ('arti_dokument', 'categorii', 'name_krai', 'gorod', 'raion',
+                    'street', 'n_doma','is_prodaju', 'is_prodano', 'is_activ', 'n_kvartiri',
+                    'n_podezda', 'is_arenda', 'descreption',)
+    exclude = ['',]
     # inlines = [PersonInline,]
     # list_editable = ('is_activ', 'is_prodaju', 'is_prodano',)
     # readonly_fields = ('get_image',)  # Добавит поле в админку
