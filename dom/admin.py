@@ -1,3 +1,4 @@
+""" dom/admin"""
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .models import Categori, DomDokument, Articul, Adres, Person, FotoDom
