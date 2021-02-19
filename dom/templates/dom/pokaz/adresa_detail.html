@@ -1,6 +1,6 @@
 {% extends 'dom/index.html' %}
 {% load static %}
-<title>{% block title %}index{% endblock title %}</title>
+<title>{% block title %}Детали{% endblock title %}</title>
 
 {% block auntifikate %}
 {% endblock %}
@@ -110,6 +110,46 @@
     </div>
 </div>
 <hr>
+<hr>
+5
+{{ adress.vid_uslugi}}
+
+
+<p>{{ us.gorodok }}</p>
+
+
+
+<hr>
+<hr>
+
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- первая -->
+        <div class="col sm-12">
+            <div class="container">
+               {% for us in adresa.uslugi_partnerov.all %}
+                <div class="card">
+
+                    <h3 class="card-title"><p>{{ us.gorodok }}</p></h3>
+                    <p>Вид услуги: {{ us.vid_uslugi }}</p>
+                    <p>Телефон для связи: - {{ us.kontakt }}</p>
+                    <p>Стоимость: {{ us.price }}</p>
+
+                    <p>Исполнитель: {{ us.ispolnitel }}</p>
+<!--                        {% if adresa.minimage %}-->
+<!--                        <img src="{{ adresa.minimage.url }}" alt="{{ adresa.name_krai }}" height="150" width="150">-->
+<!--                        {% endif %}-->
+                    <a class="btn btn-outline-success" href="{{ us.usluga_url}} " target="_blank">{{ us.nameurl }}</a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+
+
 {% endblock content_two %}
 
 
