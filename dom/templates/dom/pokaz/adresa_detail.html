@@ -131,7 +131,7 @@
                {% for us in adresa.uslugi_partnerov.all %}
                 <div class="card">
 
-                    <h3 class="card-title"><p>{{ us.gorodok }}</p></h3>
+                    <h3 class="card-title">{{ us.gorodok }}</h3>
                     <p>Вид услуги: {{ us.vid_uslugi }}</p>
                     <p>Телефон для связи: - {{ us.kontakt }}</p>
                     <p>Стоимость: {{ us.price }}</p>
@@ -148,6 +148,10 @@
     </div>
 </div>
 <hr>
+
+
+
+
 
 
 {% endblock content_two %}

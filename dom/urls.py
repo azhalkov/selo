@@ -23,6 +23,7 @@ urlpatterns = [
     path('adresa/', views.AdresListView.as_view(), name='adresa'),
     path('adresa/<slug:slug>/', AdresDetailView.as_view(), name='adresa_detail'),
     path('search/', SearchAdresaView.as_view(), name='search'),
+    path('prodaja/', TemplateView.as_view(template_name='dom/prodaja.html'), name='prodaja'),
 
 
     # path('search/', SearchResultsView.as_view(), name='search'),

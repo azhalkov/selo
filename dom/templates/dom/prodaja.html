@@ -1,3 +1,4 @@
+<!-- dom/prodja.html-->
 <!-- Подключаем страницу index приложения dom базовый шаблон на boostrap 5 -->
 {% extends 'dom/index.html' %}
 
@@ -10,23 +11,16 @@
 {% endblock  %}
 
 <!--     Блок заголовка страницы   -->
-{% block title %}shablon_index{% endblock title %}
+{% block title %}Продавцу{% endblock title %}
 
 
-
-{% block zagolovok %}
-<!-- Заголовок -->
-<div class="jumbotron text-center mt-3">
-    <h1>Сельская недвижимость.</h1>
-</div>
-{% endblock%}
 <!-- Блок для сообщений -->
 {% block verx %}
 <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Внимание!</strong> Блок полезных сообщений.
     <div class="container">
-        <h3>Подбор недвижимости. Услуги на расстоянии.</h3>
+        <h3>Быстрая продажа, по максимально высокой рыночной цене.</h3>
         <a href="#" data-toggle="popover" title="Назначение сайта" data-content="Бесплатная площадка для
   размещения объектов недвижимости. Публикуйте, ищите, нанимайте. Общение без посредников. Личный
 рабочий кабинет. Найти недвижимость. Опубликовать объявление. Нанять специалиста.">ИНФО</a>
@@ -67,19 +61,50 @@
 
 <!-- Панель меню -->
 {% block menu %}
-
 {% include "dom/menu.html" %}
-
 {% endblock menu %}
 
 
+<!-- Заголовок -->
+{% block zagolovok %}
+<div class="jumbotron text-center mt-3">
+    <h1>В помощь продавцу.</h1>
+</div>
+{% endblock%}
+
+<!-- Блок средней колонки -->
 {% block content_center %}
+<div class="container mt-4">
+    <div class="row">
+        {% for dom in object_list %}
+        <div class="col">
+            {% if dom.is_activ %}
+            <div class="card mt-3" style="width: 15rem;">
+                {% if dom.minimage %}
+                <img src="{{ dom.minimage.url }}" class="img-thumbnail" alt="">
+                {% endif %}
+                <div class="card-body">
+
+                    <h5 class="card-title">Стоимость: {{ dom.price }}</h5>
+
+                    <p class="card-text">Город: {{ dom.gorod }}</p>
+                    <hr>
+                    <a href="/dom/adresa/{{ dom.slug }}" class="btn btn-outline-success">Подробности</a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+
 
 {% endblock content_center %}
 
-{% block content_two %}
 
 <!-- Три колонки -->
+{% block content_two %}
 <div class="container mt-5">
     <div class="row">
         <!-- первая -->
@@ -98,6 +123,7 @@
 </div>
 
 {% endblock content_two %}
+
 <!--Блок низ сайта-->
 {% block footer %}
 <hr>
